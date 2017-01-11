@@ -1,0 +1,19 @@
+<h1>Assignments Inbox</h1>
+
+<div class='col-md-12'><div class='landbox'>
+    <ul>
+        {{#each assignments as |assignment|}}
+            <li>
+                <div>{{assignment.task.name}}</div>
+                <div>{{assignment.task.description}}</div>
+                {{component assignment.task.view assignment=assignment}}
+            </li>
+        {{/each}}
+    </ul>
+</div></div>
+
+<div class='col-md-12'><div class='landbox'>
+    {{#link-to "assignments.create"}}
+        <button>Assign a Task</button>
+    {{/link-to}}
+</div></div>

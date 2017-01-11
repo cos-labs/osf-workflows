@@ -1,0 +1,50 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+dist/
+tmp/
+
+# dependencies
+node_modules/
+bower_components/
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+
+
+testem.log
+
+
+
+
+!.gitkeep
+# DB / Migrations
+# Python
+**/bower_components
+*.diff
+*.idea/
+*.py[cod]
+*.pyc
+*.so
+*/__pycache__/*
+.DS_Store
+.csv
+.env
+.idea
+.idea/
+.local_settings.pyc
+db.sqlite3
+env/
+static
+latest.dump
+local_settings.py
+local.py
+local.yml
+log
+media
+**/local.py
+~Envs/

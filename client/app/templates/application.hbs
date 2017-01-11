@@ -1,0 +1,30 @@
+<div style='display: flex; min-height:100vh; flex-direction: column;'>
+    <div class='wrapper dashboard' style='flex: 1;'>
+        <div class="cos_header">
+            <div class="container">
+                <img src="/images/cos-white2.png">
+            </div>
+        </div>
+        <div class="container">
+        	{{outlet}}
+        </div>
+    </div>
+    <div class="wrapper related_services">
+        <div class="container">
+            <h2>Related Resources and Services</h2> 
+            <div class="row">
+                <div class="col-md-4">
+                    <button><h3>Open Science Framework</h3> </button>
+                </div>
+                <div class="col-md-4">
+                    <button><h3>SHARE</h3></button>
+                </div>
+                <div class="col-md-4">
+                    <button><h3>Center for Open Science</h3></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{osf-copyright}}
+    {{osf-mode-footer}}
+</div>
