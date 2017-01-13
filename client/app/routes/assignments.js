@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 
     model: function(params, transition, queryParams) {
         return Ember.RSVP.hash({
-            assignments: this.get('store').findAll('assignment'),
+            assignments: this.get('store').query('assignment', {})
         });
     },
 

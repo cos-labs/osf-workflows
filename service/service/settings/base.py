@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from corsheaders.defaults import default_methods
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,6 +34,10 @@ JSON_API_FORMAT_TYPES = 'camelize'
 
 # TODO REMOVE BEFORE PRODUCTION
 CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = default_methods + (
+    'RUN',
+)
 CORS_ALLOW_CREDENTIALS = True
 #CORS_ORIGIN_WHITELIST = (
 #    'localhost:4200',
@@ -49,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'jsonrpc',
+    'rpc',
     'api.apps.ApiConfig',
     'guardian',
     'corsheaders',
@@ -151,3 +158,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}

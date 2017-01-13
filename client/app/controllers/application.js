@@ -9,6 +9,7 @@ import {
 export default Ember.Controller.extend(OsfAgnosticAuthControllerMixin,{
     toast: Ember.inject.service(),
     authUrl: getAuthUrl(),
+
     actions: {
         loginSuccess() {
            // this.transitionToRoute('researcher.grant');

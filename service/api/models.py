@@ -14,6 +14,15 @@ class Workflow(models.Model):
         return self.name
 
 
+class Service(models.Model):
+
+    name = models.TextField()
+    description = models.TextField()
+    base_url = models.TextField()
+
+    def __str__(self):
+        return self.name
+
 
 class Task(models.Model):
 
@@ -40,7 +49,8 @@ class Task(models.Model):
     #    related_name='tasks',
     #    blank=True
     #)
-    view = models.TextField()
+    view = models.TextField(null=True, blank=True)
+    action = models.TextField(null=True, blank=True)
     splay = models.IntegerField(default=1)
     cycle = models.IntegerField(default=1)
 
@@ -95,6 +105,7 @@ class Assignment(models.Model):
         default=None
     )
     completed = models.BooleanField(default=False)
+    iteration = models.IntegerField(default=0)
 
     unique_together = (
         'submission',

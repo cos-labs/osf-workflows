@@ -29,6 +29,7 @@ module.exports = function(defaults) {
   app.import('bower_components/freewall/freewall.js');
   app.import('bower_components/packery/dist/packery.pkgd.min.js');
   app.import('bower_components/draggabilly/dist/draggabilly.pkgd.min.js')
+  app.import('bower_components/jquery-jsonrpc/jquery.jsonrpc.js');
   // Import component styles from addon
   app.import(path.join(app.bowerDirectory, 'osf-style/vendor/prism/prism.css'));
   app.import(path.join(app.bowerDirectory, 'osf-style/page.css'));

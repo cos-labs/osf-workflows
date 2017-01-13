@@ -14,6 +14,7 @@
     "packery": "^2.1.1",
     "font-awesome": "^4.7.0",
     "toastr": "^2.1.3",
-    "freewall": "^1.0.6"
+    "freewall": "^1.0.6",
+    "jquery-jsonrpc": "^0.1.1"
   }
 }

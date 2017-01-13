@@ -44,7 +44,8 @@ class Task(serializers.ModelSerializer):
             'parent_task',
             'prerequisites',
             'prerequisite_for',
-            'view'
+            'view',
+            'action'
         )
 
     class JSONAPIMeta:

@@ -1,18 +1,14 @@
 <h1>Workflows</h1>
 
-<div class='col-md-12'><div class='landbox'>
-    <ul>
-        {{#each workflows as |workflow|}}
-            <li>
-                <div>{{workflow.name}}</div>
-                <div>{{workflow.description}}</div>
-                {{#link-to "workflows.workflow.graph" workflow.id}}
-                    <button>View Workflow Graph</button>
-                {{/link-to}}
-            </li>
-        {{/each}}
-    </ul>
-</div></div>
+{{#each workflows as |workflow|}}
+    <div class='col-md-12'><div class='seabox'>
+        <h3>{{workflow.name}}</h3>
+        <div>{{workflow.description}}</div>
+        {{#link-to "workflows.workflow.graph" workflow.id}}
+            <button>View Workflow Graph</button>
+        {{/link-to}}
+    </div></div>
+{{/each}}
 
 <div class='col-md-12'><div class='landbox'>
     {{#link-to "workflows.index"}}

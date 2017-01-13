@@ -12,5 +12,4 @@ export default Ember.Route.extend(OsfAgnosticAuthRouteMixin, {
             return this.get('store').findRecord('user', 'me');
         }
     }
-
 });
