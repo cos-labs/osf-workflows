@@ -4,6 +4,7 @@
     <div class='col-md-12'><div class='seabox'>
         <h3>{{workflow.name}}</h3>
         <div>{{workflow.description}}</div>
+        <button {{action "beginWorkflow" workflow}}>Begin This Workflow</button>
         {{#link-to "workflows.workflow.graph" workflow.id}}
             <button>View Workflow Graph</button>
         {{/link-to}}

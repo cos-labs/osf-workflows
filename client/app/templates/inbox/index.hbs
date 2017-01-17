@@ -1,0 +1,11 @@
+<h1>Inbox</h1>
+
+{{#each events as |event|}}
+    <div class='col-md-12'><div class='seabox' style="overflow:hidden">
+        <h3>{{event.operation.name}}</h3>
+        <div>{{event.operation.description}}</div>
+    </div></div>
+{{/each}}
+
+<div class='col-md-12'><div class='landbox'>
+</div></div>

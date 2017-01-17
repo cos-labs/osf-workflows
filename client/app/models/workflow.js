@@ -4,7 +4,8 @@ export default DS.Model.extend({
 
     name: DS.attr('string'),
     description: DS.attr('string'),
-    tasks: DS.hasMany('task')
+    group: DS.belongsTo("group"),
+    resolver: DS.belongsTo('operation')
 
 });
 

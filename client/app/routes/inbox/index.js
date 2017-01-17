@@ -4,15 +4,9 @@ import Ember from 'ember';
 //
 export default Ember.Route.extend({
 
-    model: function(params, transition, queryParams) {
-        return Ember.RSVP.hash({
-            assignments: this.get('store').query('assignment', {})
-        });
-    },
-
     setupController: function(controller, model) {
         this._super(controller, model);
-        controller.set('assignments', model.assignments)
+        controller.set('events', model.events);
     }
 
 });

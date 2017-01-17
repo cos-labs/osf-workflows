@@ -1,0 +1,10 @@
+- model: api.workflow
+  pk: 1
+  fields:
+    name: Moderation Workflow
+    description: >-
+      The moderation workflow facilitates
+      the transition of a submission to a service to be posted in a service and, once
+      posted in a service, review for adding reviews or rejecting from the service.
+    group: 2
+    origin: 2

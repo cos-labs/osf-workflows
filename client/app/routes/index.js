@@ -4,7 +4,6 @@ import Ember from 'ember';
 //
 export default Ember.Route.extend({
 
-    setupController: async function(controller, model) {
-    }
+    setupController: async function(controller, model) {}
 
 });

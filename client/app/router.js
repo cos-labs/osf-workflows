@@ -8,8 +8,8 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
 
-    this.route('assignments', function() {
-        this.route('assignment', {path: ':assignment'});
+    this.route('inbox', function() {
+        this.route('event', {path: ':event'});
         this.route('create');
     });
 

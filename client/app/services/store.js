@@ -8,9 +8,7 @@ export default DS.Store.extend({
         let adapter = this.adapterFor(modelName)
         let typeClass = this.modelFor(modelName)
 
-        return Ember.RSVP.Promise.resolve({ then: function() {
-            return adapter.run(typeClass, id, parameters);
-        }});
+        return adapter.run(typeClass, id, parameters);
 
     }
 

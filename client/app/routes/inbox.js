@@ -4,16 +4,16 @@ import Ember from 'ember';
 //
 export default Ember.Route.extend({
 
-    model: async function(params, transition, queryParams) {
-        let workflows = await this.get('store').findAll('workflow');
+    model: function(params, transition, queryParams) {
         return Ember.RSVP.hash({
-            workflows: workflows
+            events: this.get('store').findAll('event')
         });
     },
 
     setupController: function(controller, model) {
         this._super(controller, model);
-        controller.set('workflows', model.workflows)
+        controller.set('events', model.events)
     }
+
 
 });

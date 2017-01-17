@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 
     actions: {
 
-        sendInvite: async function() {
+        finishEditing: async function() {
             let assignment = this.get("assignment");
             let task_id = await assignment.get("task.id");
             let result = await this.get('store').run('actions', task_id, {

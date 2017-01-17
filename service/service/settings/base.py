@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-from corsheaders.defaults import default_methods
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,24 +24,12 @@ SECRET_KEY = 'w3eb&qym(=g^#6_*#b3m)qazw#e4$5qgpo39xnscv_3ffz+vj6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # REST FRAMEWORK
 JSON_API_PLURALIZE_TYPES = True
 JSON_API_FORMAT_TYPES = 'camelize'
 
-
-# TODO REMOVE BEFORE PRODUCTION
-CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOW_METHODS = default_methods + (
-    'RUN',
-)
-CORS_ALLOW_CREDENTIALS = True
-#CORS_ORIGIN_WHITELIST = (
-#    'localhost:4200',
-#    'localhost:7778'
-#)
 
 # Application definition
 
@@ -53,15 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'jsonrpc',
-    'rpc',
-    'api.apps.ApiConfig',
-    'guardian',
     'corsheaders',
+    'rest_framework',
+    'workflow.apps.ApiConfig',
+    'api.apps.ApiConfig',
+    'guardian'
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -70,9 +56,48 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 #'auth.middleware.OSFTokenAuthMiddleware',
+#
+## TODO REMOVE BEFORE PRODUCTION
+#CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200',
+)
+
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'RUN',
+    'DELETE',
+    'OPTIONS',
+)
+
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken',
+    'user-agent',
+    'accept-encoding',
+)
+
+CORS_EXPOSE_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken'
+)
+CORS_PREFLIGHT_MAX_AGE = 1
 
 ROOT_URLCONF = 'service.urls'
 
