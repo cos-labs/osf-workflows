@@ -7,7 +7,6 @@ export default Ember.Component.extend({
     actions: {
 
         acceptInvite: async function() {
-            debugger;
             let assignment = this.get("assignment");
             let task_id = await assignment.get("task.id");
             this.get('store').run('task', task_id, {

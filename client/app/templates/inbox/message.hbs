@@ -1,0 +1,21 @@
+<h1>{{message.messageType}} {{message.id}}</h1>
+<div class='col-md-12'><div class='seabox' style="overflow:hidden">
+        <h3>{{message.messageType}}</h3>
+        <div>Message ID: {{message.id}}</div>
+        <div>Component Name: {{message.response.view}}</div>
+        <div>Operation Name: {{message.response.operation}}</div>
+        <h3>Parameters</h3>
+        {{#each message.response.parameters as |parameter|}}
+            <div>Parameter Key: {{parameter}}</div>
+        {{/each}}
+
+    <div>{{message.content}}</div>
+    <button {{action "deleteMessage" message}}>Delete This Message</button>
+    {{component message.response.view operation=message.response}}
+    {{#link-to "inbox.message" message.id}}
+        <button>Details</button>
+    {{/link-to}}
+</div></div>
+
+<div class='col-md-12'><div class='landbox'>
+</div></div>

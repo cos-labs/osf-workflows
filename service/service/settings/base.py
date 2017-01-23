@@ -34,6 +34,7 @@ JSON_API_FORMAT_TYPES = 'camelize'
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,6 +136,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_METADATA_CLASS': 'rest_framework_json_api.metadata.JSONAPIMetadata',
 }
+
+JSON_API_FORMAT_KEYS = 'dasherize'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases

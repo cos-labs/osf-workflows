@@ -30,8 +30,16 @@ def accept_editor_invite(rsvp):
     return 'Success'
 
 
-def editor_invite():
-    return True
+def invite_user(permit, users_to_invite, role):
+    if not permit:
+        return
+
+    invited_users = []
+    for user_pk in users_to_invite:
+        if User.objects.filter(username=user_pk).exists():
+            invited_users.append(user_pk)
+
+    return invited_users
 
 
 def link_resource():
@@ -39,5 +47,11 @@ def link_resource():
 
 def IO():
     return
+
+def return_true():
+    return True
+
+def associate_resource(resource_identifier):
+    return True
 #
 

@@ -4,13 +4,13 @@ export default Ember.Controller.extend({
 
     actions: {
 
-        beginWorkflow: function(workflow) {
+        beginWorkflow: async function(workflow) {
 
-            this.get('store').run('operation', workflow.get('origin.id'), {
-                test: 'TEST'
-            }).then((result) => {
-                this.transitionToRoute('inbox.index');
-            });
+            let ctx = this.get('store').createRecord('context');
+            ctx.get('workflows').pushObject(workflow);
+            ctx.set('inherit', workflow.rootContext);
+            await ctx.save();
+            this.transitionToRoute('inbox.index');
 
         }
 

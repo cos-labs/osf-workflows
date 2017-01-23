@@ -6,12 +6,13 @@ export default Ember.Route.extend({
 
     model: function(params, transition, queryParams) {
         return Ember.RSVP.hash({
-            messages: this.get('store').findAll('message')
+            message: this.get('store').findRecord('message', params.message)
         });
     },
 
     setupController: function(controller, model) {
         this._super(controller, model);
+        controller.set('message', model.message)
         controller.set('messages', model.messages)
     }
 

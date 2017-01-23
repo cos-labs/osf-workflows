@@ -1,133 +1,80 @@
-- model: api.operation
-  pk: 1
+- model: workflow.operation
+  pk: 0df3e52b-55ee-4402-bdca-1579bb807f75
   fields:
-    name: Example Operation
-    description: This is an example operation.
+    name: Associate a Resource
+    description: Associate a Submission with the workflow
     group: 2
-    operation: ''
-    parent: null
-    view: ''
-    parameters: []
-    prerequisites: []
-- model: api.operation
-  pk: 2
+    operation: associate_resource
+    return_value: ready_to_edit
+    view: associate-resource
+
+- model: workflow.operation
+  pk: 19a83e92-0642-4921-9d5f-533b6c48b04e
   fields:
-    name: Associate Submission
-    description: Associate a submission with a workflow.
+    name: Invite Editors
+    description: Invites an editor to become an editor for this submission.
     group: 2
-    operation: associate_submission
-    parent: null
-    view: associate-submission
-    parameters: []
-    prerequisites: []
-- model: api.operation
-  pk: 3
+    operation: invite_user
+    return_value: invited_editors
+    view: invite-user
+
+- model: workflow.operation
+  pk: 047af463-6857-4e15-b7cb-bfe5ddee483e
   fields:
-    name: Invite Editor
-    description: Invite an editor to edit a submission.
+    name: Accept Invitation To Edit
+    description: Accept this invitation to edit this submission.
     group: 2
-    operation: invite_editor
-    parent: null
-    view: invite-editor
-    parameters: []
-    prerequisites: [2]
-- model: api.operation
-  pk: 4
+    operation: accept_invitation
+    return_value: active_editors
+    view: accept-invitation
+
+- model: workflow.operation
+  pk: 15592618-d63b-4577-9008-056993f71761
   fields:
-    name: Accept Invitation to Edit
-    description: Accept an invitation to be an editor for a submission.
+    name: Conclude Editing
+    description: Conclude this editing session.
     group: 2
-    operation: accept_editor_invitation
-    parent: null
-    view: accept-editor-invitation
-    parameters: []
-    prerequisites: [3]
-- model: api.operation
-  pk: 5
-  fields:
-    name: Finish Editing
-    description: Signal the completion of the editing phase.
-    group: 1
-    operation: finish_editing
-    parent: null
-    view: finish-editing
-    parameters: []
-    prerequisites: [4]
-- model: api.operation
-  pk: 6
+    operation: conclude_editing
+    return_value: ready_to_review
+    view: approve-submission
+
+- model: workflow.operation
+  pk: 490faaf4-99bf-401c-8da5-59a2092bf427
   fields:
     name: Invite Reviewers
-    description: Invite reviewers to perform a review of the submission
+    description: Approves a submission and completes the workflow.
     group: 2
-    operation: invite_reviewers
-    parent: null
-    view: invite-reviewers
-    parameters: []
-    prerequisites: [5]
-- model: api.operation
-  pk: 7
+    operation: invite_user
+    return_value: invited_reviewers
+    view: invite_user
+
+- model: workflow.operation
+  pk: e16c9b5c-389f-47cd-b1af-636896e90c43
   fields:
-    name: Accept Invitation to Review
-    description: Accept this invitation to review a submission.
+    name: Accept Invitation To Review
+    description: Accept this invitation to review the submission.
     group: 2
-    operation: accept_reviewer_invitation
-    parent: null
-    view: accept-reviewer-invitation
-    parameters: []
-    prerequisites: [6]
-- model: api.operation
-  pk: 8
+    operation: accept_invitation
+    return_value: active_reviewers
+    view: accept-invitation
+
+- model: workflow.operation
+  pk: ff6cd7c2-b4d1-4147-b564-637ef76509be
   fields:
-    name: Finish Reviewing
-    description: Signal the completion of the review process.
+    name: Finish Review
+    description: Finish the review of a submission
     group: 2
-    operation: finish_reviewing
-    parent: null
-    view: finish-rreviewing
-    parameters: []
-    prerequisites: [7]
-- model: api.operation
-  pk: 9
+    operation: finish_review
+    return_value: ready_for_decision
+    view: finish-review
+
+- model: workflow.operation
+  pk: c00c2979-836d-42ce-8055-f40b4541faba
   fields:
-    name: Reject or Accept
-    description: Editor rejects or accepts the review.
+    name: Decision
+    description: Make a decision on the fate of the submission.
     group: 2
-    operation: reject_or_accept
-    parent: null
-    view: reject-or-accept
-    parameters: []
-    prerequisites: [8]
-- model: api.operation
-  pk: 10
-  fields:
-    name: Revise Submission
-    description: The submission has been marked for revision. When revision is complete,
-      the submission may be marked for ready for editing again.
-    group: 2
-    operation: revise_submission
-    parent: null
-    view: revise-submission
-    parameters: []
-    prerequisites: [9]
-- model: api.operation
-  pk: 11
-  fields:
-    name: Reject Submission
-    description: The submission has been rejected.
-    group: 2
-    operation: reject_submission
-    parent: null
-    view: reject-submission
-    parameters: []
-    prerequisites: [9]
-- model: api.operation
-  pk: 12
-  fields:
-    name: Approve Submission
-    description: The submission has been approved.
-    group: 2
-    operation: approve_submission
-    parent: null
-    view: approve-submission
-    parameters: []
-    prerequisites: [9]
+    operation: make_decision
+    return_value: null
+    view: make-decision
+

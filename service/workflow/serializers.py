@@ -18,7 +18,8 @@ class Workflow(serializers.ModelSerializer):
             'name',
             'description',
             'group',
-            'resolver'
+            'resolver',
+            'ctxs'
         )
 
     class JSONAPIMeta:
@@ -46,7 +47,11 @@ class Operation(serializers.ModelSerializer):
             'group',
             'operation',
             'parameters',
+            'arguments',
+            'return_value',
             'view',
+            'messages',
+            'caller'
         )
 
     class JSONAPIMeta:
@@ -55,16 +60,20 @@ class Operation(serializers.ModelSerializer):
 
 class Value(serializers.ModelSerializer):
 
+    source_operation = relations.ResourceRelatedField(
+        required=False,
+        queryset=models.Operation.objects.all()
+    )
+
     class Meta:
         model = models.Value
         fields = (
-            'id',
+            'key',
             'name',
             'description',
             'type',
-            'value',
             'operations',
-            'contexts',
+            'source_operation'
         )
 
     class JSONAPIMeta:
@@ -73,10 +82,15 @@ class Value(serializers.ModelSerializer):
 
 class Context(serializers.ModelSerializer):
 
-    values = relations.ResourceRelatedField(
+    messages = relations.ResourceRelatedField(
         required=False,
         many=True,
-        queryset=models.Value.objects.all()
+        queryset=models.Message.objects.all()
+    )
+    heirs = relations.ResourceRelatedField(
+        required=False,
+        many=True,
+        queryset=models.Context.objects.all()
     )
 
     class Meta:
@@ -84,22 +98,24 @@ class Context(serializers.ModelSerializer):
         fields = (
             'id',
             'values',
+            'inherit',
+            'heirs',
+            'workflows',
             'messages'
         )
 
 
 class Message(serializers.ModelSerializer):
-
+    
     class Meta:
         model = models.Message
         fields = (
             'id',
             'message_type',
             'timestamp',
-            'workflow',
             'origin',
             'response',
-            'context',
+            'ctx',
             'content',
         )
 

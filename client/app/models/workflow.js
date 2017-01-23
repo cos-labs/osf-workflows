@@ -5,7 +5,8 @@ export default DS.Model.extend({
     name: DS.attr('string'),
     description: DS.attr('string'),
     group: DS.belongsTo("group"),
-    resolver: DS.belongsTo('operation')
+    resolver: DS.belongsTo('operation'),
+    ctxs: DS.hasMany("context")
 
 });
 

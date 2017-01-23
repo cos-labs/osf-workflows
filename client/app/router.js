@@ -9,7 +9,7 @@ const Router = Ember.Router.extend({
 Router.map(function() {
 
     this.route('inbox', function() {
-        this.route('event', {path: ':event'});
+        this.route('message', {path: ':message'});
         this.route('create');
     });
 
@@ -18,14 +18,6 @@ Router.map(function() {
             this.route('graph', {path: 'graph'});
         });
         this.route('create');
-    });
-
-    this.route('tasks', function() {
-        this.route('tasks', {path: ':task'});
-    });
-
-    this.route('submissions', function() {
-        this.route('submission', {path: ':submission'});
     });
 
     this.route('roles', function() {
