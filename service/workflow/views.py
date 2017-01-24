@@ -4,9 +4,11 @@
 
 
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, viewsets
+from rest_framework import generics
+from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
@@ -47,6 +49,7 @@ class Operation(viewsets.ModelViewSet):
         for arg in operation.arguments.all():
             operation_parameter = user_parameters.get(arg.value.key, None)
             if arg.value.type.split(' ')[0] != 'IO':
+                import ipdb; ipdb.set_trace()
                 operation_parameter = context.values.get(arg.value.key, None)
             if not operation_parameter:
                 return Response({
@@ -57,6 +60,7 @@ class Operation(viewsets.ModelViewSet):
             parameters[arg.name] = operation_parameter
             context.values[arg.value.key] = operation_parameter
 
+        import ipdb; ipdb.set_trace()
         result = getattr(operations, operation.operation)(**parameters)
         context.values[operation.return_value.key] = result
         context.save()

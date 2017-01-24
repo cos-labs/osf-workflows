@@ -31,6 +31,7 @@ def accept_editor_invite(rsvp):
 
 
 def invite_user(permit, users_to_invite, role):
+    import ipdb; ipdd.set_trace()
     if not permit:
         return
 
