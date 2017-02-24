@@ -1,0 +1,209 @@
+[
+{
+  "model": "workflow.argument",
+  "pk": 1,
+  "fields": {
+    "operation": "0df3e52b-55ee-4402-bdca-1579bb807f75",
+    "value": "resource_identifier",
+    "name": "resource_identifier"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 2,
+  "fields": {
+    "operation": "19a83e92-0642-4921-9d5f-533b6c48b04e",
+    "value": "ready_to_edit",
+    "name": "permit"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 3,
+  "fields": {
+    "operation": "19a83e92-0642-4921-9d5f-533b6c48b04e",
+    "value": "editors_to_invite",
+    "name": "users_to_invite"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 4,
+  "fields": {
+    "operation": "19a83e92-0642-4921-9d5f-533b6c48b04e",
+    "value": "editor_role",
+    "name": "role"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 5,
+  "fields": {
+    "operation": "047af463-6857-4e15-b7cb-bfe5ddee483e",
+    "value": "invited_editors",
+    "name": "invited"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 6,
+  "fields": {
+    "operation": "047af463-6857-4e15-b7cb-bfe5ddee483e",
+    "value": "invitee",
+    "name": "invitee"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 7,
+  "fields": {
+    "operation": "15592618-d63b-4577-9008-056993f71761",
+    "value": "active_editors",
+    "name": "active_editors"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 8,
+  "fields": {
+    "operation": "15592618-d63b-4577-9008-056993f71761",
+    "value": "finished_editor",
+    "name": "finished_editor"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 9,
+  "fields": {
+    "operation": "15592618-d63b-4577-9008-056993f71761",
+    "value": "editor_count",
+    "name": "editor_count"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 10,
+  "fields": {
+    "operation": "490faaf4-99bf-401c-8da5-59a2092bf427",
+    "value": "ready_to_review",
+    "name": "permit"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 11,
+  "fields": {
+    "operation": "490faaf4-99bf-401c-8da5-59a2092bf427",
+    "value": "reviewers_to_invite",
+    "name": "users_to_invite"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 12,
+  "fields": {
+    "operation": "490faaf4-99bf-401c-8da5-59a2092bf427",
+    "value": "reviewer_role",
+    "name": "role"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 13,
+  "fields": {
+    "operation": "e16c9b5c-389f-47cd-b1af-636896e90c43",
+    "value": "invited_reviewers",
+    "name": "invited_reviewers"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 14,
+  "fields": {
+    "operation": "e16c9b5c-389f-47cd-b1af-636896e90c43",
+    "value": "reviewee",
+    "name": "reviewee"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 15,
+  "fields": {
+    "operation": "ff6cd7c2-b4d1-4147-b564-637ef76509be",
+    "value": "active_reviewers",
+    "name": "active_reviewers"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 16,
+  "fields": {
+    "operation": "ff6cd7c2-b4d1-4147-b564-637ef76509be",
+    "value": "finished_reviewer",
+    "name": "finished_reviewer"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 17,
+  "fields": {
+    "operation": "c00c2979-836d-42ce-8055-f40b4541faba",
+    "value": "ready_for_decision",
+    "name": "ready_for_decision"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 18,
+  "fields": {
+    "operation": "c00c2979-836d-42ce-8055-f40b4541faba",
+    "value": "decision",
+    "name": "decision"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 19,
+  "fields": {
+    "operation": "047af463-6857-4e15-b7cb-bfe5ddee483e",
+    "value": "rsvp",
+    "name": "rsvp"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 20,
+  "fields": {
+    "operation": "19a83e92-0642-4921-9d5f-533b6c48b04e",
+    "value": "invited_editors",
+    "name": "invited"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 21,
+  "fields": {
+    "operation": "047af463-6857-4e15-b7cb-bfe5ddee483e",
+    "value": "active_editors",
+    "name": "accepted"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 22,
+  "fields": {
+    "operation": "15592618-d63b-4577-9008-056993f71761",
+    "value": "finished_editors",
+    "name": "finished_editors"
+  }
+},
+{
+  "model": "workflow.argument",
+  "pk": 23,
+  "fields": {
+    "operation": "490faaf4-99bf-401c-8da5-59a2092bf427",
+    "value": "invited_reviewers",
+    "name": "invited"
+  }
+}
+]

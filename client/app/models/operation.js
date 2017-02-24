@@ -6,7 +6,7 @@ export default DS.Model.extend({
     description: DS.attr("string"),
     group: DS.belongsTo("group"),
     operation: DS.attr("string"),
-    parameters: DS.hasMany("value", {inverse: "operations"}),
+    args: DS.hasMany("value", {inverse: "operations"}),
     returnValue: DS.belongsTo("value", {inverse: "sourceOperation"}),
     view: DS.attr("string"),
     messages: DS.hasMany("message", {inverse: "origin"}),

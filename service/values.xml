@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+  <object model="workflow.value" pk="active_editors">
+    <field name="name" type="CharField">Active Editors</field>
+    <field name="description" type="TextField">A list of ids of editors that are actively editing a submission.</field>
+    <field name="type" type="TextField">Volatile List String</field>
+  </object>
+  <object model="workflow.value" pk="active_reviewers">
+    <field name="name" type="CharField">Active Reviewers</field>
+    <field name="description" type="TextField">A list of the reviewers that are actively reviewing the submission</field>
+    <field name="type" type="TextField">List String</field>
+  </object>
+  <object model="workflow.value" pk="decision">
+    <field name="name" type="CharField">Decision</field>
+    <field name="description" type="TextField">The decision that defines the outcome of the workflow</field>
+    <field name="type" type="TextField">IO String</field>
+  </object>
+  <object model="workflow.value" pk="editor_count">
+    <field name="name" type="CharField">Editor Count</field>
+    <field name="description" type="TextField">The number of ediors that must complete their edits before the submission is ready for review.</field>
+    <field name="type" type="TextField">Integer</field>
+  </object>
+  <object model="workflow.value" pk="editor_role">
+    <field name="name" type="CharField">Editor Role</field>
+    <field name="description" type="TextField">The role of editor.</field>
+    <field name="type" type="TextField">Role</field>
+  </object>
+  <object model="workflow.value" pk="editors_to_invite">
+    <field name="name" type="CharField">Editors to Invite</field>
+    <field name="description" type="TextField">A list of user ids to invite as editors for the submission.</field>
+    <field name="type" type="TextField">IO List String</field>
+  </object>
+  <object model="workflow.value" pk="finished_editor">
+    <field name="name" type="CharField">Finished Editor</field>
+    <field name="description" type="TextField">The id of a editor that has completed their editing.</field>
+    <field name="type" type="TextField">IO String</field>
+  </object>
+  <object model="workflow.value" pk="finished_editors">
+    <field name="name" type="CharField">Finished Editors</field>
+    <field name="description" type="TextField">A list of the IDs of editors that have completed the editing phase in the workflow</field>
+    <field name="type" type="TextField">Volatile List String</field>
+  </object>
+  <object model="workflow.value" pk="finished_reviewer">
+    <field name="name" type="CharField">Finished Reviewer</field>
+    <field name="description" type="TextField">The ID of the reviewer that has completed their review process.</field>
+    <field name="type" type="TextField">Volatile IO String</field>
+  </object>
+  <object model="workflow.value" pk="finished_reviewers">
+    <field name="name" type="CharField">Finished Reviewers</field>
+    <field name="description" type="TextField">A list containing the IDs of all reviewers that have completed the review process.</field>
+    <field name="type" type="TextField">Volatile List String</field>
+  </object>
+  <object model="workflow.value" pk="invited_editors">
+    <field name="name" type="CharField">Invited Editors</field>
+    <field name="description" type="TextField">An array containing ids of users that have been invited to be editors.</field>
+    <field name="type" type="TextField">Volatile List String</field>
+  </object>
+  <object model="workflow.value" pk="invited_reviewers">
+    <field name="name" type="CharField">Invited Reviewers</field>
+    <field name="description" type="TextField">A list of users that have been invited to be reviewers for the submission.</field>
+    <field name="type" type="TextField">Volatile List String</field>
+  </object>
+  <object model="workflow.value" pk="invitee">
+    <field name="name" type="CharField">Invitee</field>
+    <field name="description" type="TextField">The id of a person accepting the invitation to edit.</field>
+    <field name="type" type="TextField">IO String</field>
+  </object>
+  <object model="workflow.value" pk="ready_for_decision">
+    <field name="name" type="CharField">Ready Tor Decision</field>
+    <field name="description" type="TextField">Indicates that review is complete and a decision is ready to be made.</field>
+    <field name="type" type="TextField">Boolean</field>
+  </object>
+  <object model="workflow.value" pk="ready_to_edit">
+    <field name="name" type="CharField">Ready To Edit</field>
+    <field name="description" type="TextField">Indicates a submission is ready to have editors assigned.</field>
+    <field name="type" type="TextField">Boolean</field>
+  </object>
+  <object model="workflow.value" pk="ready_to_review">
+    <field name="name" type="CharField">Ready To Review</field>
+    <field name="description" type="TextField">Indicates a submission is ready to have reviewers assigned.</field>
+    <field name="type" type="TextField">Boolean</field>
+  </object>
+  <object model="workflow.value" pk="resource_identifier">
+    <field name="name" type="CharField">Resource Identifier</field>
+    <field name="description" type="TextField">A strong, unique identifier of a resource that has been associated with the workflow</field>
+    <field name="type" type="TextField">IO String</field>
+  </object>
+  <object model="workflow.value" pk="reviewee">
+    <field name="name" type="CharField">Reviewee</field>
+    <field name="description" type="TextField">The ID of a user that has accepted the invitation to be an editor.</field>
+    <field name="type" type="TextField">IO String</field>
+  </object>
+  <object model="workflow.value" pk="reviewer_role">
+    <field name="name" type="CharField">Reviewer Role</field>
+    <field name="description" type="TextField">The Reviewer Role</field>
+    <field name="type" type="TextField">Role</field>
+  </object>
+  <object model="workflow.value" pk="reviewers_to_invite">
+    <field name="name" type="CharField">Reviewers To Invite</field>
+    <field name="description" type="TextField">A list of unsers to invite as reviewers on the submission.</field>
+    <field name="type" type="TextField">IO List String</field>
+  </object>
+  <object model="workflow.value" pk="rsvp">
+    <field name="name" type="CharField">RSVP</field>
+    <field name="description" type="TextField">A response to an invitation.</field>
+    <field name="type" type="TextField">IO String</field>
+  </object>
+</django-objects>

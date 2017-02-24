@@ -56,6 +56,7 @@ h1 {
     border-right: 1px solid rgba(250,250,250,0.5);
     background-color: #ffff00;
     color: #222;
+    z-index: 1000;
     padding-left: 16px;
     padding-right: 17px;
     padding-top: 3px;
@@ -493,9 +494,6 @@ nav.navbar {
     padding-top: 16px;
     margin-bottom: 30px;
     border: 1px solid rgba(0,0,0,0.1);
-    width:500px;
-        display:inline-block;
-
 }
 
 .landbox a,
@@ -561,29 +559,35 @@ nav.navbar {
 
 }
 .sub-nav{
-    position: absolute;
-    background-color: rgba(68, 68, 68,0.7);
-    width:200px;
-    /* Firefox */
-    height: -moz-calc(100% - 100px);
-    /* WebKit */
-    height: -webkit-calc(100% - 100px);
-    /* Opera */
-    height: -o-calc(100% - 100px);
-    /* Standard */
-    height: calc(100% - 100px);
-    
-    text-align: center;
-
+    border-radius: 4px;
+    background-color: rgba(242,242,242,0.7);
+    border: 1px solid rgba(242, 242, 242, 0.7);
+    -webkit-box-shadow: 0px 11px 40px -14px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow:    0px 11px 40px -14px rgba(0, 0, 0, 0.3);
+    box-shadow:         0px 11px 40px -14px rgba(0, 0, 0, 0.3);
+    color: #666;
+    padding: 15px;
+    padding-top: 16px;
+    margin-bottom: 30px;
+    padding: 10px;
+    padding-top: 13px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    font-size: 20px;
+    border: 1px solid rgba(0,0,0,0.1);
 }
-.sub-nav a{
+.sub-nav a {
     display:block;
     font-size: 17px;
     color:white;
-    background-color: rgba(68, 68, 68,.08);
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0,.2);
+    text-decoration: none;
     text-align: center;
     padding-top:2px;
     padding-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .sub-nav a:hover{

@@ -1,32 +1,95 @@
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.response import Response
+
+from workflow import operations
 
 
-def get_allowed_operations(context, operation):
+def run(context, user_args, operation, visited=None):
+    if visited is None:
+        visited = []
+    if operation in visited:
+        return "_VISITED_"
+    visited.append(operation)
+    print(visited)
 
-    allowed_operations = []
-    parameters = operation.parameters.all()
-    parameters_checklist = list(parameters) # Make a copy so we don't modify the original
+    args = {}
 
-    #import ipdb; ipdb.set_trace()
+    for param in operation.parameters.all():
 
-    for index, value in enumerate(parameters_checklist):
-        parameters_checklist[index] = False
-        if context.values.get(value.key, None) is not None:
-            parameters_checklist[index] = True
-        if value.type.split(' ')[0] == 'IO':
-            parameters_checklist[index] = True
-        if not hasattr(value, 'source_operation'):
-            parameters_checklist[index] = True
+        key = param.name
+        value = param.value
+        _value = context.values.get(value.key, None)
 
-    if all(parameter == True for parameter in parameters_checklist):
-        allowed_operations.append(operation)
+        if param.value.type.split(' ')[0] == 'IO':
+            args[param.name] = user_args.get(param.name, None)
+            continue
+
+        if value.type.split(' ')[0] == 'Volatile':
+            volatile_operation = getattr(value, 'source_operation', None)
+            if volatile_operation:
+                _calc_value = run(context, user_args, volatile_operation, visited)
+            else:
+                import ipdb; ipdb.set_trace()
+            if _calc_value is not "_VISITED_":
+                args[key] = _calc_value
+                continue
+
+        if _value is not None:
+            if _value is not "_VISITED_":
+                args[key] = _value
+                continue
+
+        source_operation = getattr(value, 'source_operation', None)
+        if source_operation:
+            _value = run(context, user_args, source_operation, visited)
+            if _value is not "_VISITED_":
+                args[key] = _value
+                continue
+
+        print("args[key] is set to None here")
+        args[key] = None
+
+    permit = True
+    for param in operation.parameters.all():
+        key = param.name
+        value = param.value
+        if args.get(key, None) is None:
+            if value.type.split(' ')[0] == 'IO':
+                continue
+            permit = False
+            break
+
+    if permit:
+        print("====================================================================================================")
+        print("")
+        print(operation.name)
+        print("{} was RUN.".format(operation.operation))
+        print(args)
+        print("")
+        print(context.values)
+        print("")
+        print("")
+        result = getattr(operations, operation.operation)(operation=operation, context=context, **args)
+        if operation.return_value:
+            context.values[operation.return_value.key] = result
+            context.save()
     else:
-        for parameter in parameters:
-            operation = getattr(parameter, 'source_operation', None)
-            if operation:
-                allowed_operations.extend(get_allowed_operations(context, operation))
+        print("====================================================================================================")
+        print("")
+        print(operation.name)
+        print("{} was DEFERRED.".format(operation.operation))
+        print(args)
+        print("")
+        print(context.values)
+        print("")
+        print("")
+        if operation.return_value:
+            result = context.values.get(operation.return_value.key, None)
+        else:
+            result = None
+            print("parameters[key] is set to None by result")
 
-    return allowed_operations
+    return result
 
 
 def camelCase(st):

@@ -4,7 +4,11 @@ import ENV from 'analytics-dashboard/config/environment';
 
 export default Ember.Component.extend({
 
-    users: [{username: ""}],
+    users: null,
+
+    didReceiveAttrs() {
+        this.set('users', [{username: ""}])
+    },
 
     actions: {
 
@@ -13,15 +17,14 @@ export default Ember.Component.extend({
         },
 
         removeUser: function(user) {
-            debugger;
             this.get('users').removeObject(user);
         },
 
         sendInvites: async function(resourceIdentifier) {
 
-            let operation = this.get('operation');
-            let ctx = this.get('ctx');
-            let users = this.get('users').filter((user)=>{
+            let operation = this.get('message.response');
+            let ctx_id = this.get('message.ctx.id');
+            let users = this.get('users').filter((user) => {
                 return user.username.length > 0
             });
 
@@ -31,13 +34,11 @@ export default Ember.Component.extend({
             }
 
             let result = await this.get('store').run('operation', operation.get('id'), {
-                ctx: this.get("ctx.id"),
-                editors_to_invite: users
+                ctx: ctx_id,
+                users_to_invite: users
             });
 
-            this.attrs.destroy(this.get('message'));
             this.attrs.refresh();
-
         }
 
     }

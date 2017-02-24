@@ -1,0 +1,191 @@
+[
+{
+  "model": "workflow.value",
+  "pk": "active_editors",
+  "fields": {
+    "name": "Active Editors",
+    "description": "A list of ids of editors that are actively editing a submission.",
+    "type": "Volatile List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "active_reviewers",
+  "fields": {
+    "name": "Active Reviewers",
+    "description": "A list of the reviewers that are actively reviewing the submission",
+    "type": "List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "decision",
+  "fields": {
+    "name": "Decision",
+    "description": "The decision that defines the outcome of the workflow",
+    "type": "IO String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "editor_count",
+  "fields": {
+    "name": "Editor Count",
+    "description": "The number of ediors that must complete their edits before the submission is ready for review.",
+    "type": "Integer"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "editor_role",
+  "fields": {
+    "name": "Editor Role",
+    "description": "The role of editor.",
+    "type": "Role"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "editors_to_invite",
+  "fields": {
+    "name": "Editors to Invite",
+    "description": "A list of user ids to invite as editors for the submission.",
+    "type": "IO List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "finished_editor",
+  "fields": {
+    "name": "Finished Editor",
+    "description": "The id of a editor that has completed their editing.",
+    "type": "IO String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "finished_editors",
+  "fields": {
+    "name": "Finished Editors",
+    "description": "A list of the IDs of editors that have completed the editing phase in the workflow",
+    "type": "Volatile List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "finished_reviewer",
+  "fields": {
+    "name": "Finished Reviewer",
+    "description": "The ID of the reviewer that has completed their review process.",
+    "type": "Volatile IO String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "finished_reviewers",
+  "fields": {
+    "name": "Finished Reviewers",
+    "description": "A list containing the IDs of all reviewers that have completed the review process.",
+    "type": "Volatile List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "invited_editors",
+  "fields": {
+    "name": "Invited Editors",
+    "description": "An array containing ids of users that have been invited to be editors.",
+    "type": "Volatile List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "invited_reviewers",
+  "fields": {
+    "name": "Invited Reviewers",
+    "description": "A list of users that have been invited to be reviewers for the submission.",
+    "type": "Volatile List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "invitee",
+  "fields": {
+    "name": "Invitee",
+    "description": "The id of a person accepting the invitation to edit.",
+    "type": "IO String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "ready_for_decision",
+  "fields": {
+    "name": "Ready Tor Decision",
+    "description": "Indicates that review is complete and a decision is ready to be made.",
+    "type": "Boolean"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "ready_to_edit",
+  "fields": {
+    "name": "Ready To Edit",
+    "description": "Indicates a submission is ready to have editors assigned.",
+    "type": "Boolean"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "ready_to_review",
+  "fields": {
+    "name": "Ready To Review",
+    "description": "Indicates a submission is ready to have reviewers assigned.",
+    "type": "Boolean"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "resource_identifier",
+  "fields": {
+    "name": "Resource Identifier",
+    "description": "A strong, unique identifier of a resource that has been associated with the workflow",
+    "type": "IO String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "reviewee",
+  "fields": {
+    "name": "Reviewee",
+    "description": "The ID of a user that has accepted the invitation to be an editor.",
+    "type": "IO String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "reviewer_role",
+  "fields": {
+    "name": "Reviewer Role",
+    "description": "The Reviewer Role",
+    "type": "Role"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "reviewers_to_invite",
+  "fields": {
+    "name": "Reviewers To Invite",
+    "description": "A list of unsers to invite as reviewers on the submission.",
+    "type": "IO List String"
+  }
+},
+{
+  "model": "workflow.value",
+  "pk": "rsvp",
+  "fields": {
+    "name": "RSVP",
+    "description": "A response to an invitation.",
+    "type": "IO String"
+  }
+}
+]

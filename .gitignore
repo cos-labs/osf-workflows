@@ -37,6 +37,10 @@ testem.log
 .idea
 .idea/
 .local_settings.pyc
+tags
+.tags
+.tags.
+.python-version
 db.sqlite3
 env/
 static

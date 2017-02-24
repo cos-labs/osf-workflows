@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+  <object model="workflow.operation" pk="047af463-6857-4e15-b7cb-bfe5ddee483e">
+    <field name="name" type="CharField">Accept Invitation To Edit</field>
+    <field name="description" type="TextField">Accept this invitation to edit this submission.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">accept_invitation</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">active_editors</field>
+    <field name="view" type="TextField">accept-invitation</field>
+  </object>
+  <object model="workflow.operation" pk="0df3e52b-55ee-4402-bdca-1579bb807f75">
+    <field name="name" type="CharField">Associate a Resource</field>
+    <field name="description" type="TextField">Associate a Submission with the workflow</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">associate_resource</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">ready_to_edit</field>
+    <field name="view" type="TextField">associate-resource</field>
+  </object>
+  <object model="workflow.operation" pk="15592618-d63b-4577-9008-056993f71761">
+    <field name="name" type="CharField">Conclude Editing</field>
+    <field name="description" type="TextField">Conclude this editing session.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">conclude_editing</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">finished_editors</field>
+    <field name="view" type="TextField">approve-submission</field>
+  </object>
+  <object model="workflow.operation" pk="19a83e92-0642-4921-9d5f-533b6c48b04e">
+    <field name="name" type="CharField">Invite Editors</field>
+    <field name="description" type="TextField">Invites an editor to become an editor for this submission.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">invite_user</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">invited_editors</field>
+    <field name="view" type="TextField">invite-user</field>
+  </object>
+  <object model="workflow.operation" pk="490faaf4-99bf-401c-8da5-59a2092bf427">
+    <field name="name" type="CharField">Invite Reviewers</field>
+    <field name="description" type="TextField">Approves a submission and completes the workflow.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">invite_user</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">invited_reviewers</field>
+    <field name="view" type="TextField">invite_user</field>
+  </object>
+  <object model="workflow.operation" pk="b9f8a71c-2fc9-4afe-b101-9641204b61d0">
+    <field name="name" type="CharField">Editing Finished</field>
+    <field name="description" type="TextField">Returns "True" if editing is finished, and "False" if there are Editors that have not finished yet.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">editing_finished</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">ready_to_review</field>
+    <field name="view" type="TextField"></field>
+  </object>
+  <object model="workflow.operation" pk="c00c2979-836d-42ce-8055-f40b4541faba">
+    <field name="name" type="CharField">Decision</field>
+    <field name="description" type="TextField">Make a decision on the fate of the submission.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">make_decision</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value"><None></None></field>
+    <field name="view" type="TextField">make-decision</field>
+  </object>
+  <object model="workflow.operation" pk="e16c9b5c-389f-47cd-b1af-636896e90c43">
+    <field name="name" type="CharField">Accept Invitation To Review</field>
+    <field name="description" type="TextField">Accept this invitation to review the submission.</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">accept_invitation</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">active_reviewers</field>
+    <field name="view" type="TextField">accept-invitation</field>
+  </object>
+  <object model="workflow.operation" pk="ff6cd7c2-b4d1-4147-b564-637ef76509be">
+    <field name="name" type="CharField">Finish Review</field>
+    <field name="description" type="TextField">Finish the review of a submission</field>
+    <field name="group" rel="ManyToOneRel" to="auth.group">2</field>
+    <field name="operation" type="CharField">finish_review</field>
+    <field name="return_value" rel="OneToOneRel" to="workflow.value">ready_for_decision</field>
+    <field name="view" type="TextField">finish-review</field>
+  </object>
+</django-objects>

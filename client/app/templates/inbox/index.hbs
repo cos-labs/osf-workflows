@@ -3,7 +3,7 @@
 {{#each messages as |message|}}
     <div class='col-md-12'><div class='seabox' style="overflow:hidden">
         <button style='float:right; width: auto; padding: 3px 8px; background-color: #ff0000' {{action "deleteMessage" message}}>{{fa-icon "trash"}}</button>
-        <h3 style="float: left;">{{message.messageType}}</h3>
+        <!--<h3 style="float: left;">{{message.messageType}}</h3>
         <br>
         <div style="clear: both;">Message ID: {{message.id}}</div>
         <div>Component Name: {{message.response.view}}</div>
@@ -11,10 +11,11 @@
         <h3>Parameters</h3>
         {{#each message.response.parameters as |parameter|}}
             <div>Parameter Key: {{parameter}}</div>
-        {{/each}}
+        {{/each}}-->
 
-        <div>{{message.content}}</div>
-        {{component message.response.view message=message operation=message.response ctx=message.ctx refresh=(action "refresh") destroy=(action "deleteMessage")}}
+        <h3>{{message.response.name}}</h3>
+        <div style="margin-bottom: 10px;">{{message.content}}</div>
+        {{component message.response.view message=message refresh=(action "refresh")}}
     </div></div>
 {{/each}}
 

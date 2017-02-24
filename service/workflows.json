@@ -1,0 +1,12 @@
+[
+{
+  "model": "workflow.workflow",
+  "pk": "61c02575-ef04-4eff-bf98-cc93098eab9e",
+  "fields": {
+    "name": "Example Workflow",
+    "description": "This is an example workflow",
+    "group": 1,
+    "resolver": "c00c2979-836d-42ce-8055-f40b4541faba"
+  }
+}
+]

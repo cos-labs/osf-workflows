@@ -33,53 +33,6 @@ class Operation(viewsets.ModelViewSet):
     queryset = models.Operation.objects.all()
     serializer_class = serializers.Operation
 
-    def run(self, request, *args, **kwargs):
-
-        user_parameters = json.loads(request.body)
-        context = models.Context.objects.get(pk=user_parameters.pop('ctx', None))
-        if not context:
-            return Response({
-                "status": "404",
-                "title": "context does not exist",
-                "description": "the requested context does not currently exist"
-            }, status=status.http_404_not_found)
-
-        operation = models.Operation.objects.get(pk=kwargs['pk'])
-        parameters = {}
-        for arg in operation.arguments.all():
-            operation_parameter = user_parameters.get(arg.value.key, None)
-            if arg.value.type.split(' ')[0] != 'IO':
-                import ipdb; ipdb.set_trace()
-                operation_parameter = context.values.get(arg.value.key, None)
-            if not operation_parameter:
-                return Response({
-                    "status": "404",
-                    "title": "Missing Parameter",
-                    "description": "<Paramter: {}> is missing.".format(arg.value.key)
-                }, status=status.HTTP_404_NOT_FOUND)
-            parameters[arg.name] = operation_parameter
-            context.values[arg.value.key] = operation_parameter
-
-        import ipdb; ipdb.set_trace()
-        result = getattr(operations, operation.operation)(**parameters)
-        context.values[operation.return_value.key] = result
-        context.save()
-
-        new_operations = []
-        operations_to_check = models.Operation.objects.filter(parameters__in=[operation.return_value.pk])
-        for operation in operations_to_check:
-            new_operations.extend(utils.get_allowed_operations(context, operation))
-
-        for operation in new_operations:
-            message = models.Message()
-            message.message_type = 'Request'
-            message.response = operation
-            message.content = 'Your input is required to {}.'.format(operation.name)
-            message.ctx = context
-            message.save()
-
-        return Response("Success")
-
     def get_queryset(self):
         queryset=self.queryset
         #if 'operation_pk' in self.kwargs:
@@ -91,6 +44,44 @@ class Operation(viewsets.ModelViewSet):
         #    return queryset
             #return queryset.filter(prerequisites__pk=self.kwargs['operation_pk'])
         return queryset
+
+    def run(self, request, *args, **kwargs):
+
+        user_args = json.loads(request.body)
+        context = models.Context.objects.get(pk=user_args.pop('ctx', None))
+        if not context:
+            return Response({
+                "status": "404",
+                "title": "Context Does Not Exist",
+                "description": "The requested context does not currently exist."
+            }, status=status.http_404_not_found)
+
+        # TODO Use the following line to run an optimized
+        # version of `run` that only runs the affected fns.
+        # Onf faliure here, defer to recreating the available messages
+        #operation = models.Operation.objects.get(pk=kwargs['pk'])
+
+        # Delete all current messages.
+        context.messages.all().delete()
+        context.save()
+
+        # Rebuild all messages from tree.
+        for workflow in context.workflows.all():
+            #try:
+            utils.run(context, user_args, workflow.resolver)
+            #except:
+            #    return Response({
+            #        "status": "422",
+            #        "title": "Missing Argument",
+            #        "description": "<Argument: {}> is missing.".format(err.args[0].value.key)
+            #    }, status=422)
+
+        #result = getattr(operations, operation.operation)(**parameters)
+        #context.values[operation.return_value.key] = result
+        #context.save()
+
+        return Response("Success")
+
 
 
 class OperationRelationship(RelationshipView):
@@ -113,23 +104,28 @@ class Context(viewsets.ModelViewSet):
         context.values = {
             'editor_role': 'Editor',
             'reviewer_role': 'Reviewer',
+            'invited_editors': [],
+            'invited_reviewers': [],
+            'active_editors': [],
+            'active_reviewers': [],
+            'finished_editors': [],
+            'finished_reviewers': [],
+            'review_complete': False,
+            'editing_complete': False,
             'editor_count': 1,
-            'reviewer_count': 3
+            'reviewer_count': 1
         }
         context.save()
 
-        allowed_operations = []
         for workflow in context.workflows.all():
-            resolver = workflow.resolver
-            allowed_operations.extend(utils.get_allowed_operations(context, resolver))
-
-        for operation in allowed_operations:
-            message = models.Message()
-            message.message_type = 'Request'
-            message.response = operation
-            message.content = 'Your input is required to {}.'.format(operation.name)
-            message.ctx = context
-            message.save()
+            #try:
+            utils.run(context, {}, workflow.resolver)
+            #except ValueError as err:
+            #    return Response({
+            #        "status": "422",
+            #        "title": "Missing Argument",
+            #        "description": "<Argument: {}> is missing.".format(err.args[0].value.key)
+            #    }, status=422)
 
 
 class Message(viewsets.ModelViewSet):

@@ -31,10 +31,10 @@ class Operation(models.Model):
     description = models.TextField()
     group = models.ForeignKey('auth.Group', default=1)
     operation = models.CharField(max_length=32) # Needs a manifest in the module so they can't call builtins
-    parameters = models.ManyToManyField(
+    args = models.ManyToManyField(
         'Value',
         related_name='operations',
-        through='Argument',
+        through='Parameter',
         blank=True
     )
     return_value = models.OneToOneField('Value', null=True, related_name='source_operation')
@@ -44,16 +44,19 @@ class Operation(models.Model):
         return self.name
 
 
-class Argument(models.Model):
+class Parameter(models.Model):
 
-    operation = models.ForeignKey('Operation', related_name="arguments")
-    value = models.ForeignKey('Value', related_name="arguments")
+    operation = models.ForeignKey('Operation', related_name="parameters")
+    value = models.ForeignKey('Value', related_name="parameters")
     name = models.CharField(max_length=32, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.name:
             self.name = self.value.key
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return '<Parameters: Operation: {}; {} => {}>'.format(self.operation.name, self.value.key, self.name)
 
 
 class Value(models.Model):

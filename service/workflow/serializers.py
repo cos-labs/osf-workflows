@@ -33,7 +33,7 @@ class Operation(serializers.ModelSerializer):
     group = relations.ResourceRelatedField(
         queryset=Group.objects.all()
     )
-    parameters = relations.ResourceRelatedField(
+    args = relations.ResourceRelatedField(
         many=True,
         queryset=models.Value.objects.all()
     )
@@ -46,8 +46,8 @@ class Operation(serializers.ModelSerializer):
             'description',
             'group',
             'operation',
+            'args',
             'parameters',
-            'arguments',
             'return_value',
             'view',
             'messages',

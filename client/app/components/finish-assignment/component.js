@@ -5,15 +5,19 @@ export default Ember.Component.extend({
 
     actions: {
 
-        associateResource: async function(resourceIdentifier) {
+        finishAssignment: async function() {
+
             let operation = this.get('message.response');
             let ctx_id = this.get('message.ctx.id');
+
             let result = await this.get('store').run('operation', operation.get('id'), {
+                finished_assignee: "admin",
                 ctx: ctx_id,
-                resource_identifier: resourceIdentifier
             });
+
             this.attrs.refresh();
-        }
+
+        },
 
     }
 

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+  <object model="workflow.argument" pk="1">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">0df3e52b-55ee-4402-bdca-1579bb807f75</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">resource_identifier</field>
+    <field name="name" type="CharField">resource_identifier</field>
+  </object>
+  <object model="workflow.argument" pk="2">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">19a83e92-0642-4921-9d5f-533b6c48b04e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">ready_to_edit</field>
+    <field name="name" type="CharField">permit</field>
+  </object>
+  <object model="workflow.argument" pk="3">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">19a83e92-0642-4921-9d5f-533b6c48b04e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">editors_to_invite</field>
+    <field name="name" type="CharField">users_to_invite</field>
+  </object>
+  <object model="workflow.argument" pk="4">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">19a83e92-0642-4921-9d5f-533b6c48b04e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">editor_role</field>
+    <field name="name" type="CharField">role</field>
+  </object>
+  <object model="workflow.argument" pk="5">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">047af463-6857-4e15-b7cb-bfe5ddee483e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">invited_editors</field>
+    <field name="name" type="CharField">invited</field>
+  </object>
+  <object model="workflow.argument" pk="6">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">047af463-6857-4e15-b7cb-bfe5ddee483e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">invitee</field>
+    <field name="name" type="CharField">invitee</field>
+  </object>
+  <object model="workflow.argument" pk="7">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">15592618-d63b-4577-9008-056993f71761</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">active_editors</field>
+    <field name="name" type="CharField">active_editors</field>
+  </object>
+  <object model="workflow.argument" pk="8">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">15592618-d63b-4577-9008-056993f71761</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">finished_editor</field>
+    <field name="name" type="CharField">finished_editor</field>
+  </object>
+  <object model="workflow.argument" pk="9">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">15592618-d63b-4577-9008-056993f71761</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">editor_count</field>
+    <field name="name" type="CharField">editor_count</field>
+  </object>
+  <object model="workflow.argument" pk="10">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">490faaf4-99bf-401c-8da5-59a2092bf427</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">ready_to_review</field>
+    <field name="name" type="CharField">permit</field>
+  </object>
+  <object model="workflow.argument" pk="11">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">490faaf4-99bf-401c-8da5-59a2092bf427</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">reviewers_to_invite</field>
+    <field name="name" type="CharField">users_to_invite</field>
+  </object>
+  <object model="workflow.argument" pk="12">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">490faaf4-99bf-401c-8da5-59a2092bf427</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">reviewer_role</field>
+    <field name="name" type="CharField">role</field>
+  </object>
+  <object model="workflow.argument" pk="13">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">e16c9b5c-389f-47cd-b1af-636896e90c43</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">invited_reviewers</field>
+    <field name="name" type="CharField">invited_reviewers</field>
+  </object>
+  <object model="workflow.argument" pk="14">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">e16c9b5c-389f-47cd-b1af-636896e90c43</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">reviewee</field>
+    <field name="name" type="CharField">reviewee</field>
+  </object>
+  <object model="workflow.argument" pk="15">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">ff6cd7c2-b4d1-4147-b564-637ef76509be</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">active_reviewers</field>
+    <field name="name" type="CharField">active_reviewers</field>
+  </object>
+  <object model="workflow.argument" pk="16">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">ff6cd7c2-b4d1-4147-b564-637ef76509be</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">finished_reviewer</field>
+    <field name="name" type="CharField">finished_reviewer</field>
+  </object>
+  <object model="workflow.argument" pk="17">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">c00c2979-836d-42ce-8055-f40b4541faba</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">ready_for_decision</field>
+    <field name="name" type="CharField">ready_for_decision</field>
+  </object>
+  <object model="workflow.argument" pk="18">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">c00c2979-836d-42ce-8055-f40b4541faba</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">decision</field>
+    <field name="name" type="CharField">decision</field>
+  </object>
+  <object model="workflow.argument" pk="19">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">047af463-6857-4e15-b7cb-bfe5ddee483e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">rsvp</field>
+    <field name="name" type="CharField">rsvp</field>
+  </object>
+  <object model="workflow.argument" pk="20">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">19a83e92-0642-4921-9d5f-533b6c48b04e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">invited_editors</field>
+    <field name="name" type="CharField">invited</field>
+  </object>
+  <object model="workflow.argument" pk="21">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">047af463-6857-4e15-b7cb-bfe5ddee483e</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">active_editors</field>
+    <field name="name" type="CharField">accepted</field>
+  </object>
+  <object model="workflow.argument" pk="22">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">15592618-d63b-4577-9008-056993f71761</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">finished_editors</field>
+    <field name="name" type="CharField">finished_editors</field>
+  </object>
+  <object model="workflow.argument" pk="23">
+    <field name="operation" rel="ManyToOneRel" to="workflow.operation">490faaf4-99bf-401c-8da5-59a2092bf427</field>
+    <field name="value" rel="ManyToOneRel" to="workflow.value">invited_reviewers</field>
+    <field name="name" type="CharField">invited</field>
+  </object>
+</django-objects>

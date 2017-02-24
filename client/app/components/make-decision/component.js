@@ -15,8 +15,7 @@ export default Ember.Component.extend({
 
             let result = await this.get('store').run('operation', operation.get('id'), {
                 ctx: ctx_id,
-                invitee: "admin",
-                rsvp: "Accept"
+                decision: "Approve",
             });
 
             this.attrs.refresh();
@@ -30,8 +29,7 @@ export default Ember.Component.extend({
 
             let result = await this.get('store').run('operation', operation.get('id'), {
                 ctx: ctx_id,
-                invitee: "admin",
-                rsvp: "Decline"
+                decision: "Decline"
             });
 
             this.attrs.refresh();

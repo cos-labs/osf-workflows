@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
         },
 
         refresh() {
-            this.set("operations", this.get("store").query("operation", {}));
+            this.set("messages", this.get("store").query("message", {}));
             return true;
         }
     }

@@ -1,0 +1,110 @@
+[
+{
+  "model": "workflow.operation",
+  "pk": "047af463-6857-4e15-b7cb-bfe5ddee483e",
+  "fields": {
+    "name": "Accept Invitation To Edit",
+    "description": "Accept this invitation to edit this submission.",
+    "group": 2,
+    "operation": "accept_invitation",
+    "return_value": "active_editors",
+    "view": "accept-invitation"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "0df3e52b-55ee-4402-bdca-1579bb807f75",
+  "fields": {
+    "name": "Associate a Resource",
+    "description": "Associate a Submission with the workflow",
+    "group": 2,
+    "operation": "associate_resource",
+    "return_value": "ready_to_edit",
+    "view": "associate-resource"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "15592618-d63b-4577-9008-056993f71761",
+  "fields": {
+    "name": "Conclude Editing",
+    "description": "Conclude this editing session.",
+    "group": 2,
+    "operation": "conclude_editing",
+    "return_value": "finished_editors",
+    "view": "approve-submission"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "19a83e92-0642-4921-9d5f-533b6c48b04e",
+  "fields": {
+    "name": "Invite Editors",
+    "description": "Invites an editor to become an editor for this submission.",
+    "group": 2,
+    "operation": "invite_user",
+    "return_value": "invited_editors",
+    "view": "invite-user"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "490faaf4-99bf-401c-8da5-59a2092bf427",
+  "fields": {
+    "name": "Invite Reviewers",
+    "description": "Approves a submission and completes the workflow.",
+    "group": 2,
+    "operation": "invite_user",
+    "return_value": "invited_reviewers",
+    "view": "invite_user"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "b9f8a71c-2fc9-4afe-b101-9641204b61d0",
+  "fields": {
+    "name": "Editing Finished",
+    "description": "Returns \"True\" if editing is finished, and \"False\" if there are Editors that have not finished yet.",
+    "group": 2,
+    "operation": "editing_finished",
+    "return_value": "ready_to_review",
+    "view": ""
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "c00c2979-836d-42ce-8055-f40b4541faba",
+  "fields": {
+    "name": "Decision",
+    "description": "Make a decision on the fate of the submission.",
+    "group": 2,
+    "operation": "make_decision",
+    "return_value": null,
+    "view": "make-decision"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "e16c9b5c-389f-47cd-b1af-636896e90c43",
+  "fields": {
+    "name": "Accept Invitation To Review",
+    "description": "Accept this invitation to review the submission.",
+    "group": 2,
+    "operation": "accept_invitation",
+    "return_value": "active_reviewers",
+    "view": "accept-invitation"
+  }
+},
+{
+  "model": "workflow.operation",
+  "pk": "ff6cd7c2-b4d1-4147-b564-637ef76509be",
+  "fields": {
+    "name": "Finish Review",
+    "description": "Finish the review of a submission",
+    "group": 2,
+    "operation": "finish_review",
+    "return_value": "ready_for_decision",
+    "view": "finish-review"
+  }
+}
+]
