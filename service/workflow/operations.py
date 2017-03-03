@@ -120,7 +120,9 @@ def make_decision(ready_for_decision, decision, operation=None, context=None):
     message.content = operation.description
     message.ctx = context
     message.save()
-    return True
+    if decision:
+        return True
+    return None
 
 def return_true(operation=None, context=None):
     return True

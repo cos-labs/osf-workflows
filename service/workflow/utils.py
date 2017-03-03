@@ -7,8 +7,6 @@ from workflow import operations
 def run(context, user_args, operation, visited=None):
     if visited is None:
         visited = []
-    if operation in visited:
-        return "_VISITED_"
     visited.append(operation)
     print(visited)
 
@@ -26,12 +24,8 @@ def run(context, user_args, operation, visited=None):
 
         if value.type.split(' ')[0] == 'Volatile':
             volatile_operation = getattr(value, 'source_operation', None)
-            if volatile_operation:
-                _calc_value = run(context, user_args, volatile_operation, visited)
-            else:
-                import ipdb; ipdb.set_trace()
-            if _calc_value is not "_VISITED_":
-                args[key] = _calc_value
+            if volatile_operation and volatile_operation not in visited:
+                args[key] = run(context, user_args, volatile_operation, visited)
                 continue
 
         if _value is not None:
@@ -40,11 +34,9 @@ def run(context, user_args, operation, visited=None):
                 continue
 
         source_operation = getattr(value, 'source_operation', None)
-        if source_operation:
-            _value = run(context, user_args, source_operation, visited)
-            if _value is not "_VISITED_":
-                args[key] = _value
-                continue
+        if source_operation and source_operation not in visited:
+            args[key] = run(context, user_args, source_operation, visited)
+            continue
 
         print("args[key] is set to None here")
         args[key] = None

@@ -16,6 +16,7 @@ from rest_framework_json_api.views import RelationshipView
 from rest_framework.exceptions import APIException
 
 import json
+import copy
 
 from workflow import models
 from workflow import serializers
@@ -61,20 +62,33 @@ class Operation(viewsets.ModelViewSet):
         # Onf faliure here, defer to recreating the available messages
         #operation = models.Operation.objects.get(pk=kwargs['pk'])
 
-        # Delete all current messages.
-        context.messages.all().delete()
-        context.save()
 
-        # Rebuild all messages from tree.
-        for workflow in context.workflows.all():
-            #try:
-            utils.run(context, user_args, workflow.resolver)
-            #except:
-            #    return Response({
-            #        "status": "422",
-            #        "title": "Missing Argument",
-            #        "description": "<Argument: {}> is missing.".format(err.args[0].value.key)
-            #    }, status=422)
+        previous_context = None
+        while not previous_context == context.values: # This is ugly.
+            previous_context = copy.deepcopy(context.values)
+            # Delete all current messages.
+            context.messages.all().delete()
+            context.save()
+
+            # Rebuild all messages from tree.
+            for workflow in context.workflows.all():
+                #try:
+                context 
+                if utils.run(context, user_args, workflow.resolver):
+                    print("WORKFLOW COMPLETED")
+                    context.messages.all().delete()
+                    message = models.Message()
+                    message.message_type = 'Notification'
+                    message.response = None
+                    message.content = 'Thank you for completing the workflow.'
+                    message.ctx = context
+                    message.save()
+                #except:
+                #    return Response({
+                #        "status": "422",
+                #        "title": "Missing Argument",
+                #        "description": "<Argument: {}> is missing.".format(err.args[0].value.key)
+                #    }, status=422)
 
         #result = getattr(operations, operation.operation)(**parameters)
         #context.values[operation.return_value.key] = result

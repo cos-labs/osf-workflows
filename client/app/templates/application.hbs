@@ -1,6 +1,6 @@
 <div style='display: flex; min-height:100vh; flex-direction: column;'>
    
-    <div class='wrapper dashboard' style='flex: 1;'>
+    <div class='wrapper dashboard' style='flex: 1; display: flex; flex-direction: column;'>
         <!-- Nav bar -->
         <div class="cos_header">
             <div class="container-fluid">
@@ -9,16 +9,25 @@
 
         </div>
      
+        <div style="background-color: #b6a6bc; color: #5c4b63; font-size: 24px; font-weight: 200; padding-top: 20px; padding-left: 15px; padding-bottom: 8px; border-bottom: 1px solid #9a84a3 ">OSF Workflows
+        </div>
+     
+        <div style="background-color: #ddd; color: #666; font-size: 18px; font-weight: 200; padding-top: 10px; padding-left: 15px; padding-bottom: 8px; border-bottom: 1px solid #ccc">All Workflows
+        </div>
         <!-- body -->
-        <div class="container-fluid">
-         <div class=" sub-nav col-md-3">
-            <h3>Menu</h3>
-            <hr/>
-            {{#link-to "index"}}Home{{/link-to}}
-            {{#link-to "inbox.index"}}Inbox{{/link-to}}
-            {{#link-to "workflows.index"}}Workflows{{/link-to}}
+        <div class="container-fluid" style="display: flex; height: 100%; flex: 1; position: relative; margin: 0;">
+         <div class=" sub-nav col-xs-2">
+            <h5 style="padding-left: 15px;">Work Items</h5>
+            {{#link-to "inbox.index"}}Open Work Items{{/link-to}}
+            {{#link-to "inbox.index"}}Pending Work Items{{/link-to}}
+            <h5 style="padding-left: 15px;">Cases</h5>
+            <a>Active Cases</a>
+            <a>Case History</a>
+            <h5 style="padding-left: 15px;">Workflows</h5>
+            <a>My Workflows</a>
+            {{#link-to "workflows.index"}}Browse Workflows{{/link-to}}
          </div>
-            <div class="col-md-9">
+            <div class="col-xs-10 workspace">
         	{{outlet}}
             </div>
         </div>
@@ -28,17 +37,17 @@
     <!-- footer -->
         <div class="wrapper related_services">
             <div class="container-fluid">
-                <h2>Related Resources and Services</h2> 
+                <h3 style="padding-left: 15px;">Related Resources and Services</h3> 
                
-                <div class="row">
+                <div>
                     <div class="col-md-4">
-                        <button><h3>Open Science Framework</h3> </button>
+                        <button><h4>Open Science Framework</h4> </button>
                     </div>
                     <div class="col-md-4">
-                        <button><h3>SHARE</h3></button>
+                        <button><h4>SHARE</h4></button>
                     </div>
                     <div class="col-md-4">
-                        <button><h3>Center for Open Science</h3></button>
+                        <button><h4>Center for Open Science</h4></button>
                     </div>
                     
                 </div>

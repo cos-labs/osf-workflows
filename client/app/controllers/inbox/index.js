@@ -9,6 +9,7 @@ export default Ember.Controller.extend({
         },
 
         refresh() {
+            this.get("store").unloadAll();
             this.set("messages", this.get("store").query("message", {}));
             return true;
         }
