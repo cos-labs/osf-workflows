@@ -1,6 +1,5 @@
 # OSF Workflows
 
-
 OSF Workflows is an open source workflow engine that allows users to quickly and easily create backends that implement collections of operations to define workflows, visualize workflows as flowcharts, and evaluate these workflows.
 
 ## Development
