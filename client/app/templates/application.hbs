@@ -1,34 +1,27 @@
 <div style='display: flex; min-height:100vh; flex-direction: column;'>
-   
     <div class='wrapper dashboard' style='flex: 1; display: flex; flex-direction: column;'>
-        <!-- Nav bar -->
-        <div class="cos_header">
-            <div class="container-fluid">
-                <img src="/images/cos-white2.png">
-            </div>
-
+        {{osf-navbar loginAction=(action 'login') hideSearch=true}}
+        <div style="background-color: rgba(154,132,163,0.5); color: #5c4b63; font-size: 24px; font-weight: 200; padding-top: 20px; padding-left: 15px; padding-bottom: 8px; border-bottom: 1px solid #9a84a3 ">
+            OSF Workflows
         </div>
-     
-        <div style="background-color: #b6a6bc; color: #5c4b63; font-size: 24px; font-weight: 200; padding-top: 20px; padding-left: 15px; padding-bottom: 8px; border-bottom: 1px solid #9a84a3 ">OSF Workflows
-        </div>
-     
-        <div style="background-color: #ddd; color: #666; font-size: 18px; font-weight: 200; padding-top: 10px; padding-left: 15px; padding-bottom: 8px; border-bottom: 1px solid #ccc">All Workflows
+        <div style="background-color: #ddd; color: #666; font-size: 18px; font-weight: 200; padding-top: 10px; padding-left: 15px; padding-bottom: 8px; border-bottom: 1px solid #ccc">
+            All Workflows
         </div>
         <!-- body -->
-        <div class="container-fluid" style="display: flex; height: 100%; flex: 1; position: relative; margin: 0;">
-         <div class=" sub-nav col-xs-2">
-            <h5 style="padding-left: 15px;">Work Items</h5>
-            {{#link-to "inbox.index"}}Open Work Items{{/link-to}}
-            {{#link-to "inbox.index"}}Pending Work Items{{/link-to}}
-            <h5 style="padding-left: 15px;">Cases</h5>
-            <a>Active Cases</a>
-            <a>Case History</a>
-            <h5 style="padding-left: 15px;">Workflows</h5>
-            <a>My Workflows</a>
-            {{#link-to "workflows.index"}}Browse Workflows{{/link-to}}
-         </div>
-            <div class="col-xs-10 workspace">
-        	{{outlet}}
+        <div class="container-fluid" style="display: flex; height: 100%; flex: 1; position: relative; margin: 0; flex-direction: row; flex-wrap: wrap;">
+            <div class="sub-nav" style="flex: 1; margin: 0; flex-grow: 1; flex-shrink: 0; flex-basis: 200px;">
+                <h5 style="padding-left: 15px;">Work Items</h5>
+                {{#link-to "inbox.index"}}Open Work Items{{/link-to}}
+                {{#link-to "inbox.index"}}Pending Work Items{{/link-to}}
+                <h5 style="padding-left: 15px;">Cases</h5>
+                <a>Active Cases</a>
+                <a>Case History</a>
+                <h5 style="padding-left: 15px;">Workflows</h5>
+                <a>My Workflows</a>
+                {{#link-to "workflows.index"}}Browse Workflows{{/link-to}}
+            </div>
+            <div class="workspace" style="flex: 1; flex-basis: 60%; flex-grow: 6; flex-basis: 500px;">
+        	    {{outlet}}
             </div>
         </div>
 

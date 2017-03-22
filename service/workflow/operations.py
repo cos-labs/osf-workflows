@@ -124,6 +124,8 @@ def make_decision(ready_for_decision, decision, operation=None, context=None):
         return True
     return None
 
+def finish_workflow_creation(wor
+
 def return_true(operation=None, context=None):
     return True
 

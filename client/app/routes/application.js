@@ -1,9 +1,8 @@
 import Ember from 'ember';
 
-//import OsfAgnosticAuthRouteMixin from 'ember-osf/mixins/osf-agnostic-auth-route';
+import OsfTokenLoginRouteMixin from 'ember-osf/mixins/osf-token-login-route';
 
-//export default Ember.Route.extend(OsfAgnosticAuthRouteMixin, {
-export default Ember.Route.extend({
+export default Ember.Route.extend(OsfTokenLoginRouteMixin, {
 
     store: Ember.inject.service(),
     session: Ember.inject.service(),
