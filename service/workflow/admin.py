@@ -2,38 +2,53 @@ from django.contrib import admin
 from workflow import models
 from django.contrib.auth.models import User, Group
 
-@admin.register(models.Workflow)
-class Workflow(admin.ModelAdmin):
-    pass
 
-@admin.register(models.Operation)
-class Operation(admin.ModelAdmin):
-    list_display = ("name", "operation", "return_value")
+@admin.register(models.Net)
+class Net(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'description'
+    )
 
-@admin.register(models.Parameter)
-class Parameters(admin.ModelAdmin):
-    list_display = ("id", "name", "value", "operation")
+@admin.register(models.Transition)
+class Transition(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "transition_class",
+    )
 
-@admin.register(models.Value)
-class Value(admin.ModelAdmin):
-    list_display = ("name", "description")
+@admin.register(models.Token)
+class Token(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'color',
+        'location'
+    )
 
-@admin.register(models.Context)
-class Context(admin.ModelAdmin):
-    list_display = ("id", )
+@admin.register(models.Location)
+class Location(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "description"
+    )
+
+@admin.register(models.Arc)
+class Arc(admin.ModelAdmin):
+    list_display = (
+        "type",
+        "transition",
+        "location"
+    )
+
+@admin.register(models.Case)
+class Case(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "net",
+        "messages"
+    )
 
 @admin.register(models.Message)
 class Message(admin.ModelAdmin):
     list_display = ("id", )
-
-@admin.register(models.Service)
-class Service(admin.ModelAdmin):
-    pass
-
-@admin.register(models.Resource)
-class Resource(admin.ModelAdmin):
-    pass
-
-@admin.register(models.Role)
-class Role(admin.ModelAdmin):
-    list_display = ("name", "responsibilities")

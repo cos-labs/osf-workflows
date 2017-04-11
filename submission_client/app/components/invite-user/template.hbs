@@ -1,0 +1,11 @@
+<div>
+    To invite users, enter a user's name in the box. If there is more than one user you would like to invite at this time, add additional fields for more names using the "Add User" button. When you are satisfied with the list, you may send the invitations by pressing the "Invite" button.
+</div>
+{{#each users as |user|}}
+    {{input class='remove-list-item' value=user.username placeholder="Username"}}
+    <button style='width: auto; padding: 0px 5px; background-color: #ff0000; margin-left: 10px;' {{action "removeUser" user}}>{{fa-icon "close"}}</button>
+    <br>
+{{/each}}
+<a style="display: block; padding: 2px 2px; font-weight: 600; color: #aaa; font-style:italic; " {{action "addUser"}}>Add another user...</a>
+<button style='float: right;' {{action "sendInvites" resourceIdentifier}}>Send Invitations</button>
+{{yield}}

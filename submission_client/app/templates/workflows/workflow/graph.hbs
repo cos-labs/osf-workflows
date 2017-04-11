@@ -1,0 +1,29 @@
+<h1>{{workflow.name}} Graph</h1>
+
+<div class='col-md-12'><div class='landbox'>
+    <ul>
+        {{#each workflow.tasks as |task|}}
+            <li>
+                <h3>{{task.name}}</h3>
+                <div>{{task.description}}</div>
+                <h4>Subtasks</h4>
+                <ul>
+                    {{#each task.subtasks as |subtask|}}
+                        <li class='row'>
+                            <div class='col-md-3' style='font-weight: 500; padding-right: 30px;'>{{subtask.name}}</div>
+                            <div class='col-md-3'>{{subtask.description}}</div>
+                        </li>
+                    {{/each}}
+                </ul>
+                <h4>Prerequisites</h4>
+                <ul>
+                    {{#each task.prerequisites as |prereq|}}
+                        <li>
+                            <span>{{prereq.name}}:</span> {{prereq.description}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </li>
+        {{/each}}
+    </ul>
+</div></div>

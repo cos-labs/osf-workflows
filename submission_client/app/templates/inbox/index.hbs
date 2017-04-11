@@ -1,0 +1,39 @@
+<h1 style="
+    margin-top: 0;
+    padding-top: 180px;
+    padding-bottom: 50px;
+    background: url('images/submit.jpg') top center no-repeat;
+    border-bottom: 1px solid #ccc;
+    background-size: cover;
+">Add Preprint</h1>
+
+<div class="container">
+
+{{#each sections as |section|}}
+    <div class='seabox' style="overflow:hidden; z-index: 1000">
+    <h2>{{section}}</h2>
+        {{#each messages as |message|}}
+            {{#if (eq message.response.section section)}}
+                <div>
+                    <button style='float:right; width: auto; padding: 3px 8px; background-color: #ff0000' {{action "deleteMessage" message}}>{{fa-icon "trash"}}</button>
+                    <!--<h3 style="float: left;">{{message.messageType}}</h3>
+                    <br>
+                    <div style="clear: both;">Message ID: {{message.id}}</div>
+                    <div>Component Name: {{message.response.view}}</div>
+                    <div>Operation Name: {{message.response.operation}}</div>
+                    <h3>Parameters</h3>
+                    {{#each message.response.parameters as |parameter|}}
+                        <div>Parameter Key: {{parameter}}</div>
+                    {{/each}}-->
+
+                    <h3>{{message.response.name}}</h3>
+                    <div style="margin-bottom: 10px;">{{message.content}}</div>
+                    {{component message.response.view message=message refresh=(action "refresh")}}
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+{{/each}}
+
+</div>
+

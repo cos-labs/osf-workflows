@@ -1,0 +1,21 @@
+<h1>Submissions</h1>
+
+{{#each submissions as |submission|}}
+    <div class='col-md-12'><div class='seabox' style="overflow:hidden">
+        <h3>{{submission.identifier}}</h3>
+        <div>Submitted for {{submission.workflow.name}}</div>
+        <div>Uploaded by: {{submission.uploader.username}}</div>
+        {{#link-to "submissions.submission" submission.id}}
+            <button style="float: right; margin-top: 20px; margin-left: 20px;">View Submission</button>
+        {{/link-to}}
+        {{#link-to "submissions.index"}}
+            <button style="float: right; margin-top: 20px; margin-left: 20px;">Cancel Submission</button>
+        {{/link-to}}
+    </div></div>
+{{/each}}
+
+<div class='col-md-12'><div class='landbox'>
+    {{#link-to "submissions.index"}}
+        <button>New Submission</button>
+    {{/link-to}}
+</div></div>

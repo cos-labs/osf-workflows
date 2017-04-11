@@ -9,105 +9,138 @@ from django.contrib.auth.models import User, Group
 from workflow import models
 
 
-class Workflow(serializers.ModelSerializer):
+class Net(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Workflow
+        resource_name = 'nets'
+        model = models.Net
         fields = (
             'id',
             'name',
             'description',
             'group',
-            'resolver',
-            'ctxs'
+            'cases',
+            'transitions',
+            'locations',
         )
 
-    class JSONAPIMeta:
-        resource_name = 'workflows'
 
+class Transition(serializers.ModelSerializer):
 
-class Operation(serializers.ModelSerializer):
-
-    name = CharField(max_length=64, required=False)
-    operation = CharField(max_length=32, required=False)
+    name = CharField(max_length=128, required=False)
+    transition_class = CharField(max_length=128, required=False)
     group = relations.ResourceRelatedField(
         queryset=Group.objects.all()
     )
-    args = relations.ResourceRelatedField(
+    inputs = relations.ResourceRelatedField(
         many=True,
-        queryset=models.Value.objects.all()
+        queryset=models.Location.objects.all()
+    )
+    outputs = relations.ResourceRelatedField(
+        many=True,
+        queryset=models.Location.objects.all()
     )
 
     class Meta:
-        model = models.Operation
+        resource_name = 'transitions'
+        model = models.Transition
         fields = (
             'id',
             'name',
             'description',
             'group',
-            'operation',
-            'args',
-            'parameters',
-            'return_value',
+            'section',
+            'transition_class',
+            'inputs',
+            'outputs',
             'view',
             'messages',
-            'caller'
+            'caller',
+            'net',
+            'arcs'
         )
 
-    class JSONAPIMeta:
-        resource_name = 'operations'
 
+class Token(serializers.ModelSerializer):
 
-class Value(serializers.ModelSerializer):
-
-    source_operation = relations.ResourceRelatedField(
+    location = relations.ResourceRelatedField(
         required=False,
-        queryset=models.Operation.objects.all()
+        queryset=models.Location.objects.all()
+    )
+
+    case = relations.ResourceRelatedField(
+        required=False,
+        queryset=models.Case.objects.all()
     )
 
     class Meta:
-        model = models.Value
+        resource_name = 'tokens'
+        model = models.Token
+        fields = (
+            'color',
+            'case',
+            'location',
+            'name',
+        )
+
+
+class Location(serializers.ModelSerializer):
+
+    sources = relations.ResourceRelatedField(
+        many=True,
+        queryset=models.Transition.objects.all()
+    )
+    targets = relations.ResourceRelatedField(
+        many=True,
+        queryset=models.Transition.objects.all()
+    )
+
+    class Meta:
+        resource_name = 'locations'
+        model = models.Location
         fields = (
             'key',
             'name',
             'description',
             'type',
-            'operations',
-            'source_operation'
+            'net',
+            'arcs',
+            'tokens'
         )
 
-    class JSONAPIMeta:
-        resoure_name = 'values'
+
+class Arc(serializers.ModelSerializer):
+
+    class Meta:
+        resource_name = 'arcs'
+        model = models.Arc
+        fields = (
+            'type',
+        )
 
 
-class Context(serializers.ModelSerializer):
+class Case(serializers.ModelSerializer):
 
     messages = relations.ResourceRelatedField(
         required=False,
         many=True,
         queryset=models.Message.objects.all()
     )
-    heirs = relations.ResourceRelatedField(
-        required=False,
-        many=True,
-        queryset=models.Context.objects.all()
-    )
 
     class Meta:
-        model = models.Context
+        resource_name = 'cases'
+        model = models.Case
         fields = (
             'id',
-            'values',
-            'inherit',
-            'heirs',
-            'workflows',
+            'net',
             'messages'
         )
 
 
 class Message(serializers.ModelSerializer):
-    
+
     class Meta:
+        resource_name = 'messages'
         model = models.Message
         fields = (
             'id',
@@ -115,71 +148,26 @@ class Message(serializers.ModelSerializer):
             'timestamp',
             'origin',
             'response',
-            'ctx',
+            'case',
             'content',
         )
-
-    class JSONAPIMeta:
-        resource_name = 'messages'
-
-
-class Role(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Role
-        fields = (
-            'name',
-            'responsibilities',
-            'operation'
-        )
-
-    class JSONAPIMeta:
-        resource_name = 'roles'
-
-
-class Service(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Service
-        fields = (
-            'name',
-            'description',
-            'base_url',
-        )
-
-    class JSONAPIMeta:
-        resource_name = 'services'
-
-
-class Resource(serializers.ModelSerializer):
-
-    class Meta:
-        model = models.Resource
-        fields = (
-            'name',
-            'description',
-            'service'
-        )
-
-    class JSONAPIMeta:
-        resource_name = 'resources'
 
 
 class User(serializers.ModelSerializer):
 
     class Meta:
+        resource_name = 'users'
         model = User
         fields = (
             'id',
             'username',
         )
 
-    class JSONAPIMeta:
-        resource_name = 'users'
 
 class Group(serializers.ModelSerializer):
 
     class Meta:
+        resource_name = 'groups'
         model = Group
         fields = (
             'name',

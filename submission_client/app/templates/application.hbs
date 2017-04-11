@@ -1,0 +1,45 @@
+<div style='display: flex; min-height:100vh; flex-direction: column;'>
+    <div class='wrapper dashboard' style='flex: 1; display: flex; flex-direction: column;'>
+        {{osf-navbar loginAction=(action 'login') hideSearch=true}}
+        <div style="
+            background-color: #578CA2;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 400;
+            padding-top: 20px;
+            padding-left: 15px;
+            padding-bottom: 8px;
+        ">
+            OSF Preprints
+        </div>
+        <!-- body -->
+        <div class="container-fluid" style="display: flex; height: 100%; flex: 1; position: relative; margin: 0; flex-direction: row; flex-wrap: wrap;">
+            <div class="workspace" style="flex: 1; flex-basis: 60%; flex-grow: 6; flex-basis: 500px;">
+        	    {{outlet}}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- footer -->
+        <div class="wrapper related_services">
+            <div class="container-fluid">
+                <h3 style="padding-left: 15px;">Related Resources and Services</h3> 
+               
+                <div>
+                    <div class="col-md-4">
+                        <button><h4>Open Science Framework</h4> </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button><h4>SHARE</h4></button>
+                    </div>
+                    <div class="col-md-4">
+                        <button><h4>Center for Open Science</h4></button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        {{osf-copyright}}
+        {{osf-mode-footer}}
+</div>

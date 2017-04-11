@@ -1,0 +1,4 @@
+{{#each choices as |choice|}}
+    <button {{action "associateResource" choice}}>{{choice}}</button>
+{{/each}}
+{{yield}}

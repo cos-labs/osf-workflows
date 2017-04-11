@@ -24,15 +24,15 @@ from workflow import operations
 from workflow import utils
 
 
-class Workflow(viewsets.ModelViewSet):
-    queryset = models.Workflow.objects.all()
-    serializer_class = serializers.Workflow
+class Net(viewsets.ModelViewSet):
+    queryset = models.Net.objects.all()
+    serializer_class = serializers.Net
 
 
-class Operation(viewsets.ModelViewSet):
+class Transition(viewsets.ModelViewSet):
     http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace', 'run']
-    queryset = models.Operation.objects.all()
-    serializer_class = serializers.Operation
+    queryset = models.Transition.objects.all()
+    serializer_class = serializers.Transition
 
     def get_queryset(self):
         queryset=self.queryset
@@ -49,7 +49,7 @@ class Operation(viewsets.ModelViewSet):
     def run(self, request, *args, **kwargs):
 
         user_args = json.loads(request.body)
-        context = models.Context.objects.get(pk=user_args.pop('ctx', None))
+        context = models.Case.objects.get(pk=user_args.pop('ctx', None))
         if not context:
             return Response({
                 "status": "404",
@@ -72,7 +72,6 @@ class Operation(viewsets.ModelViewSet):
 
             # Rebuild all messages from tree.
             for workflow in context.workflows.all():
-                #try:
                 context 
                 if utils.run(context, user_args, workflow.resolver):
                     print("WORKFLOW COMPLETED")
@@ -83,63 +82,82 @@ class Operation(viewsets.ModelViewSet):
                     message.content = 'Thank you for completing the workflow.'
                     message.ctx = context
                     message.save()
-                #except:
-                #    return Response({
-                #        "status": "422",
-                #        "title": "Missing Argument",
-                #        "description": "<Argument: {}> is missing.".format(err.args[0].value.key)
-                #    }, status=422)
-
-        #result = getattr(operations, operation.operation)(**parameters)
-        #context.values[operation.return_value.key] = result
-        #context.save()
 
         return Response("Success")
 
 
 
-class OperationRelationship(RelationshipView):
-    queryset = models.Operation.objects.all()
-    serializer_class = models.Operation
+class TransitionRelationship(RelationshipView):
+    queryset = models.Transition.objects.all()
+    serializer_class = models.Transition
 
 
-class Value(viewsets.ModelViewSet):
-    queryset = models.Value.objects.all()
-    serializer_class = serializers.Value
+class Location(viewsets.ModelViewSet):
+    queryset = models.Location.objects.all()
+    serializer_class = serializers.Location
 
 
-class Context(viewsets.ModelViewSet):
-    queryset = models.Context.objects.all()
-    serializer_class = serializers.Context
+class Arc(viewsets.ModelViewSet):
+    queryset = models.Arc.objects.all()
+    serializer_class = serializers.Arc
+
+
+class Case(viewsets.ModelViewSet):
+    queryset = models.Case.objects.all()
+    serializer_class = serializers.Case
 
     def perform_create(self, serializer):
 
-        context = serializer.save()
-        context.values = {
-            'editor_role': 'Editor',
-            'reviewer_role': 'Reviewer',
-            'invited_editors': [],
-            'invited_reviewers': [],
-            'active_editors': [],
-            'active_reviewers': [],
-            'finished_editors': [],
-            'finished_reviewers': [],
-            'review_complete': False,
-            'editing_complete': False,
-            'editor_count': 1,
-            'reviewer_count': 1
-        }
-        context.save()
+        case = serializer.save()
 
-        for workflow in context.workflows.all():
-            #try:
-            utils.run(context, {}, workflow.resolver)
-            #except ValueError as err:
-            #    return Response({
-            #        "status": "422",
-            #        "title": "Missing Argument",
-            #        "description": "<Argument: {}> is missing.".format(err.args[0].value.key)
-            #    }, status=422)
+        # Set up tokens in net's default token configuration
+        for token in case.net.starting_tokens.all():
+            models.Token(
+                color=token.color,
+                case=case,
+                location=token.location,
+                name=token.name
+            ).save()
+            import ipdb; ipdb.set_trace()
+
+        case.net.wake()
+
+        # [{
+        #    'name': 'Editor Role',
+        #    'color': 'Editor',
+        #}, {
+        #    'name': 'Reviewer Role',
+        #    'color': 'Reviewer',
+        #}, {
+        #    'invited_editors': [],
+        #    'invited_reviewers': [],
+        #    'active_editors': [],
+        #    'active_reviewers': [],
+        #    'finished_editors': [],
+        #    'finished_reviewers': [],
+        #    'review_complete': False,
+        #    'editing_complete': False,
+        #    'editor_count': 1,
+        #    'reviewer_count': 1,
+        #    'indicated_disciplines': [],
+        #    'connection_methods': [
+        #        'upload',
+        #        'connect_existing'
+        #     ],
+        #    'preprint_title': False
+        #}]:
+
+    def perform_update(self, serializer):
+
+        case = serializer.save()
+
+        # Initialize any tokens that are IO
+        for location in self.locations.all():
+            if location.type == "IO":
+                pass
+                #Token(color=None, case=self, location=location, name='mytoken').save()
+
+        case.net.wake()
 
 
 class Message(viewsets.ModelViewSet):
@@ -149,26 +167,6 @@ class Message(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = self.queryset
         return queryset
-
-
-class Service(viewsets.ModelViewSet):
-    queryset = models.Service.objects.all()
-    serializer_class = serializers.Service
-
-
-class ServiceRelationship(RelationshipView):
-    queryset = models.Service.objects.all()
-    serializer_class = serializers.Service
-
-
-class Resource(viewsets.ModelViewSet):
-    queryset = models.Resource.objects.all()
-    serializer_class = serializers.Resource
-
-
-class Role(viewsets.ModelViewSet):
-    queryset = models.Role.objects.all()
-    serializer_class = serializers.Role
 
 
 class User(viewsets.ModelViewSet):

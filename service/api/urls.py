@@ -7,11 +7,11 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework_nested import routers
 
 from api import views
-from workflow.routers import router, operation_router
+from workflow.routers import router#, transition_router
 
 
 urlpatterns = format_suffix_patterns([
     url(r'^$', views.api_root),
     url(r'^', include(router.urls)),
-    url(r'^', include(operation_router.urls)),
+    #url(r'^', include(transition_router.urls)),
 ])

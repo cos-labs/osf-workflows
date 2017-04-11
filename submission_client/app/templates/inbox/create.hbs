@@ -1,0 +1,47 @@
+<h1>Create a New Assignment</h1>
+
+<div class='row'>
+
+    <div class='col-md-7'><div class='landbox'>
+        Create a new assignment. The current user is required to have permission to assign tasks, and the task may be assigned: i.e., it has no uncompleted prerequisites, and the target user must be allowed to perform the task.
+    </div></div>
+
+    <div class='col-md-5'><div class='seabox' style='position: relative; overflow: hidden;'>
+
+        <select class="form-control input-lg select" onchange={{action (mut submissionId) value="target.value"}}>
+                <option>Select a Submission</option>
+                {{#each submissions as |submission|}}
+                    <option selected={{eq selectedSubmission submission}} value={{submission.id}}>{{submission.identifier}}</option>
+                {{/each}}
+        </select>
+
+        <br>
+
+        <select class="form-control input-lg select" onchange={{action (mut taskId) value="target.value"}}>
+                <option>Select a Task</option>
+                {{#each tasks as |task|}}
+                    <option selected={{eq selectedTask task}} value={{task.id}}>{{task.name}}</option>
+                {{/each}}
+        </select>
+
+        <br>
+        <select class="form-control input-lg select" onchange={{action (mut userId) value="target.value"}}>
+                <option>Select a User</option>
+                {{#each users as |user|}}
+                    <option selected={{eq selectedUser user}} value={{user.id}}>{{user.id}}</option>
+                {{/each}}
+        </select>
+        <br>
+
+        <select class="form-control input-lg select" onchange={{action (mut roleId) value="target.value"}}>
+                <option>Select a Role</option>
+                {{#each roles as |role|}}
+                    <option selected={{eq selecterRole role}} value={{role.id}}>{{role.name}}</option>
+                {{/each}}
+        </select>
+
+        <button style='float:right; margin-top: 20px'>Assign</button>
+
+    </div></div>
+
+</div>

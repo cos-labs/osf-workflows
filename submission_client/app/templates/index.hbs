@@ -1,0 +1,22 @@
+        <div style="
+            background-color: #ddd;
+            color: #666;
+            font-size: 18px;
+            font-weight: 200;
+            padding-top: 80px;
+            padding-left: 15px;
+            padding-bottom: 88px;
+            border-bottom: 1px solid #ccc;
+            background-image: url('images/pp-bg.jpg');
+">
+            <div style="text-align: center; color: #fff; font-size: 48px; font-weight: 400;">OSF PREPRINTS</div>
+            <br>
+            <div class="container">
+            <input id="searchBox" type="search" class="form-control" placeholder="Search preprints...">
+            </div>
+            <br>
+            <div style="text-align: center;"><a class="btn btn-success btn-lg" {{action "beginWorkflow" workflow}}>Add a preprint</a></div>
+        </div>
+
+
+{{outlet}}

@@ -59,14 +59,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
+"""
 #'auth.middleware.OSFTokenAuthMiddleware',
 #
 ## TODO REMOVE BEFORE PRODUCTION
 #CORS_ORIGIN_ALLOW_ALL = False
+"""
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
+    'localhost:4201',
 )
 
 CORS_ALLOW_METHODS = (

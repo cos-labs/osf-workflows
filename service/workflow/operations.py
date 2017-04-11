@@ -2,11 +2,78 @@
 from django.contrib.auth.models import User
 
 from workflow import models
+import json
 
+import requests
 import logging
 logger = logging.getLogger('project.interesting.stuff')
 
+def add_tags(tags, added_tags, operation=None, context=None):
+    if added_tags is None:
+        added_tags = []
+    message = models.Message()
+    message.message_type = 'Request'
+    message.response = operation
+    message.content = operation.description
+    message.ctx = context
+    message.save()
+    tag_set = set(tags)
+    tag_set.update(set(added_tags))
+    return list(tag_set)
 
+def project_exists(operation=None, context=None):
+    return True
+
+def file_upload(condition, file_url, operation=None, context=None):
+    def check_file_uploaded():
+        return True
+    if condition == "upload":
+        message = models.Message()
+        message.message_type = 'Request'
+        message.response = operation
+        message.content = operation.description
+        message.ctx = context
+        message.save()
+        return file_url if file_url else None
+
+def multiple_choice(choices, chosen, operation=None, context=None):
+    if chosen in choices:
+        return chosen
+    message = models.Message()
+    message.message_type = 'Request'
+    message.response = operation
+    message.content = json.dumps(choices)
+    message.ctx = context
+    message.save()
+    return None
+
+def set_string(string, old_string=None, condition=True, operation=None, context=None):
+    message = models.Message()
+    message.message_type = 'Request'
+    message.response = operation
+    message.content = operation.description
+    message.ctx = context
+    message.save()
+    if string:
+        return string
+    return old_string
+
+def set_list(list_to_set, operation=None, context=None):
+    return
+
+def submit_preprint(project_guid, title, disciplines, authors, license, doi, tags, abstract, preprint_uploaded, operation=None, context=None):
+    if project_guid is None:
+        message = models.Message()
+        message.message_type = 'Request'
+        message.response = operation
+        message.content = operation.description
+        message.ctx = context
+        message.save()
+        return None
+    return True
+
+def notify_collections(submitted, project_guid, operation=None, context=None):
+    return True
 
 def init():
     return 'Success'
