@@ -46,7 +46,7 @@ class Case(admin.ModelAdmin):
     list_display = (
         "id",
         "net",
-        "messages"
+        #"messages"
     )
 
 @admin.register(models.Message)

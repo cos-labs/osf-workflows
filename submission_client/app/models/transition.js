@@ -11,7 +11,6 @@ export default DS.Model.extend({
     view: DS.attr("string"),
     section: DS.attr("string"),
     messages: DS.hasMany("message", {inverse: "origin"}),
-    caller: DS.hasMany("message", {inverse: "response"})
 
 });
 

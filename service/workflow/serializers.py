@@ -53,7 +53,6 @@ class Transition(serializers.ModelSerializer):
             'transition_class',
             'inputs',
             'outputs',
-            'view',
             'messages',
             'caller',
             'net',
@@ -99,13 +98,14 @@ class Location(serializers.ModelSerializer):
         resource_name = 'locations'
         model = models.Location
         fields = (
-            'key',
             'name',
             'description',
             'type',
             'net',
+            'targets',
             'arcs',
-            'tokens'
+            'tokens',
+            'sources'
         )
 
 
@@ -150,6 +150,8 @@ class Message(serializers.ModelSerializer):
             'response',
             'case',
             'content',
+            'view',
+            'section'
         )
 
 

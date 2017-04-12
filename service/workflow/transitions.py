@@ -4,7 +4,6 @@ from workflow import models
 def submit(**kwargs):
     def create_tokens(**kwargs):
         return None
-    import ipdb; ipdb.set_trace()
     return {
         'name': 'Author',
         'color': 'John Doe'
@@ -23,17 +22,21 @@ def passthru(**kwargs):
     return create_tokens
 
 
-def request_token(**kwargs):
+def request_token(location_id=None, case=None, section="default", color={}, transition=None, **kwargs):
     def create_tokens(**kwargs):
         return None
-    #message = models.Message()
-    #message.message_type = 'Request'
-    #import ipdb; ipdb.set_trace()
-    #message.response = operation
-    #message.content = operation.description
-    #message.ctx = context
-    #message.save()
-    return {
+    location = models.Location.objects.get(id=location_id)
+    message = models.Message()
+    message.message_type = 'Request'
+    message.response = location
+    message.content = location.description
+    message.view = location.view
+    message.section = section
+    message.case = case
+    message.save()
+    return [{
         'name': None,
-        'color': kwargs
-    }
+        'color': color,
+        'case': case,
+        'location': output,
+    } for output in transition.outputs.all()]

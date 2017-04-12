@@ -13,7 +13,7 @@
     <div class='seabox' style="overflow:hidden; z-index: 1000">
     <h2>{{section}}</h2>
         {{#each messages as |message|}}
-            {{#if (eq message.response.section section)}}
+            {{#if (eq message.section section)}}
                 <div>
                     <button style='float:right; width: auto; padding: 3px 8px; background-color: #ff0000' {{action "deleteMessage" message}}>{{fa-icon "trash"}}</button>
                     <!--<h3 style="float: left;">{{message.messageType}}</h3>
@@ -25,12 +25,13 @@
                     {{#each message.response.parameters as |parameter|}}
                         <div>Parameter Key: {{parameter}}</div>
                     {{/each}}-->
+                    {{message.section}}
 
                     <h3>{{message.response.name}}</h3>
                     <div style="margin-bottom: 10px;">{{message.content}}</div>
-                    {{component message.response.view message=message refresh=(action "refresh")}}
+                    {{component message.view message=message refresh=(action "refresh")}}
                 </div>
-            {{/if}}
+           {{/if}}
         {{/each}}
     </div>
 {{/each}}

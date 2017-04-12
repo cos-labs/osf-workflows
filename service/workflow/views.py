@@ -102,6 +102,16 @@ class Arc(viewsets.ModelViewSet):
     serializer_class = serializers.Arc
 
 
+class Token(viewsets.ModelViewSet):
+    queryset = models.Case.objects.all()
+    serializer_class = serializers.Case
+
+    def perform_create(self, serializer):
+
+        token = serializer.save()
+        case.net.wake()
+
+
 class Case(viewsets.ModelViewSet):
     queryset = models.Case.objects.all()
     serializer_class = serializers.Case
@@ -118,7 +128,6 @@ class Case(viewsets.ModelViewSet):
                 location=token.location,
                 name=token.name
             ).save()
-            import ipdb; ipdb.set_trace()
 
         case.net.wake()
 

@@ -7,6 +7,7 @@ export default DS.Model.extend({
     type: DS.attr("string"),
     operations: DS.hasMany("operation"),
     sourceOperation: DS.belongsTo("operation"),
+    caller: DS.hasMany("message", {inverse: "response"})
 
 });
 
