@@ -9,7 +9,8 @@ export default DS.Model.extend({
     caxe: DS.belongsTo('case', {inverse: "messages"}),
     content: DS.attr('string'),
     view: DS.attr(),
-    section: DS.attr('string')
+    section: DS.attr('string'),
+    responseToken: DS.belongsTo('token', {inverse: 'requestMessage'})
 
 });
 

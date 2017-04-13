@@ -103,8 +103,8 @@ class Arc(viewsets.ModelViewSet):
 
 
 class Token(viewsets.ModelViewSet):
-    queryset = models.Case.objects.all()
-    serializer_class = serializers.Case
+    queryset = models.Token.objects.all()
+    serializer_class = serializers.Token
 
     def perform_create(self, serializer):
 

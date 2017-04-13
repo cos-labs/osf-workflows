@@ -17,6 +17,8 @@ router.register(r'messages', views.Message)
 router.register(r'cases', views.Case)
 router.register(r'users', views.User)
 router.register(r'groups', views.Group)
+router.register(r'tokens', views.Token)
+router.register(r'arcs', views.Arc)
 
 
 #transition_router = routers.NestedSimpleRouter(router, r'transitions', lookup='transition')

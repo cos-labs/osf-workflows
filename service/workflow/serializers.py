@@ -49,12 +49,10 @@ class Transition(serializers.ModelSerializer):
             'name',
             'description',
             'group',
-            'section',
             'transition_class',
             'inputs',
             'outputs',
             'messages',
-            'caller',
             'net',
             'arcs'
         )
@@ -79,7 +77,9 @@ class Token(serializers.ModelSerializer):
             'color',
             'case',
             'location',
+            'request_message',
             'name',
+            'net'
         )
 
 
@@ -138,6 +138,11 @@ class Case(serializers.ModelSerializer):
 
 
 class Message(serializers.ModelSerializer):
+    
+    response_token = relations.ResourceRelatedField(
+        required=False,
+        queryset=models.Token.objects.all()
+    )
 
     class Meta:
         resource_name = 'messages'
@@ -151,7 +156,8 @@ class Message(serializers.ModelSerializer):
             'case',
             'content',
             'view',
-            'section'
+            'section',
+            'response_token',
         )
 
 

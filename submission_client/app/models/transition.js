@@ -11,6 +11,9 @@ export default DS.Model.extend({
     view: DS.attr("string"),
     section: DS.attr("string"),
     messages: DS.hasMany("message", {inverse: "origin"}),
+    net: DS.belongsTo("net", {inverse: "transitions"}),
+    outputs: DS.hasMany("location", {inverse: "sources"}),
+    inputs: DS.hasMany("location", {inverse: "targets"}),
 
 });
 

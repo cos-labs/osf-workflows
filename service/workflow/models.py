@@ -21,7 +21,7 @@ class Net(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
     group = models.ForeignKey('auth.Group', default=1)
-    starting_tokens = models.ManyToManyField('Token', blank=True)
+    starting_tokens = models.ManyToManyField('Token', related_name='net', blank=True)
 
     def get_fireable_transitions(self):
         transitions = [transition for transition in self.transitions.all() if transition.is_fireable()]
@@ -85,11 +85,6 @@ class Net(models.Model):
                     print('--Fired--')
                     print(f'Sinks: {sink}')
                     Token(**sink).save()
-
-        # Sustained firing is done. Allow user to begin interacting with net again.
-        for transition in self.get_enabled_transitions():
-            for case in transition.enabled_cases():
-                case.enable_transition(transition)
 
     def __str__(self):
         return self.name
@@ -182,6 +177,7 @@ class Token(models.Model):
     case = models.ForeignKey('Case', related_name='tokens', null=True, blank=True)
     location = models.ForeignKey('Location', related_name='tokens')
     name = models.CharField(max_length=32, null=True, blank=True)
+    request_message = models.OneToOneField('Message', null=True, blank=True, related_name='response_token')
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -220,14 +216,6 @@ class Case(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     net = models.ForeignKey('Net', related_name='cases', blank=True, null=True)
-
-    def enable_transition(self, transition):
-        message = Message()
-        message.message_type = 'Request'
-        message.response = transition
-        message.content = transition.description
-        message.case = self
-        message.save()
 
     def __str__(self):
         return str(self.id.urn)
