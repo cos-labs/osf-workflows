@@ -10,7 +10,8 @@ export default DS.Model.extend({
     content: DS.attr('string'),
     view: DS.attr(),
     section: DS.attr('string'),
-    responseToken: DS.belongsTo('token', {inverse: 'requestMessage'})
+    responseTokens: DS.hasMany('token', {inverse: 'requestMessages'}),
+    responseTokenName: DS.attr('string')
 
 });
 

@@ -1,6 +1,6 @@
 export default DS.JSONAPISerializer.extend({
   attrs: {
-    requestMessage: 'request_message',
+    requestMessages: 'request_messages',
     caxe: 'case',
   }
 });

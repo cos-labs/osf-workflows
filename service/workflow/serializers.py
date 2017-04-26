@@ -65,9 +65,20 @@ class Token(serializers.ModelSerializer):
         queryset=models.Location.objects.all()
     )
 
+    net = relations.ResourceRelatedField(
+        required=False,
+        queryset=models.Net.objects.all()
+    )
+
     case = relations.ResourceRelatedField(
         required=False,
         queryset=models.Case.objects.all()
+    )
+
+    request_messages = relations.ResourceRelatedField(
+        required=False,
+        many=True,
+        queryset=models.Message.objects.all()
     )
 
     class Meta:
@@ -77,7 +88,7 @@ class Token(serializers.ModelSerializer):
             'color',
             'case',
             'location',
-            'request_message',
+            'request_messages',
             'name',
             'net'
         )
@@ -139,8 +150,9 @@ class Case(serializers.ModelSerializer):
 
 class Message(serializers.ModelSerializer):
     
-    response_token = relations.ResourceRelatedField(
+    response_tokens = relations.ResourceRelatedField(
         required=False,
+        many=True,
         queryset=models.Token.objects.all()
     )
 
@@ -157,7 +169,8 @@ class Message(serializers.ModelSerializer):
             'content',
             'view',
             'section',
-            'response_token',
+            'response_tokens',
+            'response_token_name'
         )
 
 

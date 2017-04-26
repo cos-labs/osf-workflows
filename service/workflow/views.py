@@ -109,7 +109,7 @@ class Token(viewsets.ModelViewSet):
     def perform_create(self, serializer):
 
         token = serializer.save()
-        case.net.wake()
+        token.net.wake()
 
 
 class Case(viewsets.ModelViewSet):
@@ -128,6 +128,7 @@ class Case(viewsets.ModelViewSet):
                 location=token.location,
                 name=token.name
             ).save()
+
 
         case.net.wake()
 

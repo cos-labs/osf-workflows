@@ -1,3 +1,10 @@
-{{input value=resourceIdentifier}}
-<button {{action "associateResource" resourceIdentifier}}>{{message.response.name}}</button>
+<div>
+    To add a discipline, type it in the box. To add another, press the + button then type it in the additional box.
+</div>
+{{#each disciplines as |discipline|}}
+    {{input class='remove-list-item' value=discipline.username placeholder="Discipline"}}
+    <button style='width: auto; padding: 0px 5px; background-color: #ff0000; margin-left: 10px;' {{action "removeUser" user}}>{{fa-icon "close"}}</button>
+    <br>
+{{/each}}
+<a style="display: block; padding: 2px 2px; font-weight: 600; color: #aaa; font-style:italic; " {{action "addDiscipline"}}>Add another user...</a>
 {{yield}}

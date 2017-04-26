@@ -14,6 +14,9 @@ from workflow.utils import camelCase
 #from workflow import managers
 from workflow import transitions
 
+import ipdb;
+
+#ipdb.set_trace()
 
 class Net(models.Model):
 
@@ -21,7 +24,6 @@ class Net(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
     group = models.ForeignKey('auth.Group', default=1)
-    starting_tokens = models.ManyToManyField('Token', related_name='net', blank=True)
 
     def get_fireable_transitions(self):
         transitions = [transition for transition in self.transitions.all() if transition.is_fireable()]
@@ -39,6 +41,7 @@ class Net(models.Model):
         consumed_tokens = Token.objects.none()
 
     def validate_net(self):
+        print("Validating Net...")
         for transition in self.transitions.all():
             if not transition.inputs.exists():
                 import ipdb; ipdb.set_trace()
@@ -46,12 +49,18 @@ class Net(models.Model):
 
     def wake(self):
 
+        print('\n###########################################################################')
+        print('############################## WAKING NET #################################')
+        print('###########################################################################\n')
         self.validate_net()
 
         while True:
 
             fireable_transitions = self.get_fireable_transitions()
             if not fireable_transitions:
+                print('\n###########################################################################')
+                print('############################## FIRING STALLED #############################')
+                print('###########################################################################\n')
                 break
 
             # All enabled transitions must fire during each
@@ -63,31 +72,51 @@ class Net(models.Model):
 
                 # Fire the transitions
                 for transition in fireable_transitions:
+                    print(f'\n****************************************************************')
+                    print(f'Evaluating at transition {transition}...')
+                    print(f'################################################################\n')
                     for case in transition.fireable_cases():
+                        print(f'Evaluating case {case}')
                         tokens = []
                         for token in transition.all_tokens():
                             if token.case is not None:
                                 if token.case.id == case.id:
+                                    print(token)
+                                    print(token.__dict__)
                                     tokens.append(token)
-                        sink = transition.fire(tokens, case)
+                        print(tokens)
+
+                        try:
+                            sink = transition.fire([token.__dict__ for token in tokens], case)
+                        except Exception as e:
+                            print("transition did not fire")
+                            raise e
+
+                        print(f'\nNew Tokens: {sink}')
                         # Mark tokens as stale as transitions that depend on them fire.
                         # Defer deletion until after this round of transitions have fired.
                         stale_tokens = list(chain(stale_tokens, tokens))
                         # Defer creation until after this round of transitions have fired.
+                        #import ipdb; ipdb.set_trace()
                         sinks = list(chain(sinks, sink))
 
                 # All transitions have fired, delete stale tokens
+                print(f'\nDeleting stale tokens')
                 for token in stale_tokens:
+                    print(f'Token {token}')
                     token.delete()
 
                 # All transitions have fired, now create tokens
+                print('\nSaving newly created tokens...')
                 for sink in sinks:
-                    print('--Fired--')
-                    print(f'Sinks: {sink}')
+                    print(f'Token {sink}')
                     Token(**sink).save()
+
+                print('')
 
     def __str__(self):
         return self.name
+
 
 
 class Transition(models.Model):
@@ -100,31 +129,64 @@ class Transition(models.Model):
     inputs = models.ManyToManyField('Location', related_name='targets', through='Arc', blank=True)
     outputs = models.ManyToManyField('Location', related_name='sources', blank=True)
     net = models.ForeignKey('Net', null=True, blank=True, related_name='transitions')
-    static_args = JSONField(default={})
+    permanent_tokens = JSONField(null=True, blank=True, default=[])
 
-    def fire(self, transition_tokens, case):
-        return getattr(transitions, self.transition_class)(**{
-            **self.static_args,
+    def fire(self, tokens, case):
+        print(self.name)
+        print(self.description)
+        print(f'\nInputs:')
+        for input in self.inputs.all():
+            print(input)
+        print('\nOutputs')
+        for output in self.outputs.all():
+            print(output)
+        tokens.extend(self.permanent_tokens)
+        print('\nTokens')
+        for token in tokens:
+            print(token)
+        transition_fn = getattr(transitions, self.transition_class)
+        print(f'\nTransition: {self.transition_class}')
+        print("\n* ___ FIRING ___ *\n")
+        sink = transition_fn(**{
+            "tokens": tokens,
             "case": case,
             "transition": self,
-            **{token.name: token.color for token in transition_tokens}
         })
+        return sink
 
     def all_tokens(self):
-        tokens = Token.objects.none()
+        tokens = []
         for arc in self.arcs.all():
             tokens = list(chain(tokens, arc.location.tokens.all()))
         print(tokens)
         return tokens
 
     def fireable_cases(self):
-        querysets = [arc.location.tokens.all() for arc in self.arcs.all()]
         cases = []
+        print('finding fireable cases')
         for case in self.net.cases.all():
-            if all([queryset.filter(case__id=case.id).exists() for queryset in querysets]):
-                print(f'{case} is fireable')
-                print([queryset.all() for queryset in querysets])
+            print(f'Checking case: {case}')
+            fires = True
+            for arc in self.arcs.all():
+                print(f"checking arc: {arc}")
+                print(arc.type)
+                print(arc.threshold)
+                tokens = arc.location.tokens.filter(case__id=case.id)
+                print(tokens)
+                print(tokens.count())
+                if arc.type == 'IN':
+                    if tokens.count() < arc.threshold:
+                        print(f'{case} is fireable')
+                        continue
+                if arc.type == 'EX':
+                    if tokens.count() >= arc.threshold:
+                        print(f'{case} is fireable')
+                        continue
+                fires = False
+                break
+            if fires:
                 cases.append(case)
+
         return cases
 
     def enabled_cases(self):
@@ -142,34 +204,6 @@ class Transition(models.Model):
         return self.name
 
 
-
-
-        '''
-
-            for case in self.cases:
-                location_tokens = arc.location.tokens.filter(case__id=case.id)
-                token_count = location_tokens.count()
-
-            Tokens.objects.filter(case__id=self.case.id, location__targets__id=transition.id)
-                print(f'{token_count} {location_tokens.all()} {arc.location.type} {arc.type} {arc.threshold}')
-
-                if arc.type == 'IN':
-                    if token_count >= arc.threshold:
-                        enabled = False
-                        continue
-
-                if arc.type == 'EX':
-                    if token_count < arc.threshold:
-                        enabled = False
-                        continue
-
-                transition_tokens = transition_tokens.union(location_tokens)
-        case_tokens = self.get_tokens.filter(case__id=case.id)
-        transition_tokens = self.get_tokens()
-        '''
-
-
-
 class Token(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -177,9 +211,17 @@ class Token(models.Model):
     case = models.ForeignKey('Case', related_name='tokens', null=True, blank=True)
     location = models.ForeignKey('Location', related_name='tokens')
     name = models.CharField(max_length=32, null=True, blank=True)
-    request_message = models.OneToOneField('Message', null=True, blank=True, related_name='response_token')
+    request_messages = models.ManyToManyField('Message', null=True, blank=True, related_name='response_tokens')
+    starts = models.ForeignKey('Net', related_name='starting_tokens', null=True, blank=True)
+    net = models.ForeignKey('Net', related_name='tokens', null=True, blank=True)
+    unique_at_location = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        for token in Token.objects.filter(location=self.location).filter(name=self.name).filter(case=self.case):
+            print(f'Checking Token: {token}')
+            if token.unique_at_location == True:
+                print(f'Deleting Token: {token}')
+                token.delete()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -230,6 +272,7 @@ class Message(models.Model):
     case = models.ForeignKey('Case', related_name='messages')
     origin = models.ManyToManyField('Transition', related_name='messages', default=None)
     response = models.ForeignKey('Location', related_name='caller', default=None, null=True)
+    response_token_name = models.CharField(max_length=128, default=None, blank=True, null=True)
     content = models.TextField()
     section = models.CharField(max_length=128, default='default')
 
