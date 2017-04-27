@@ -55,6 +55,17 @@ def passthru(tokens=[], case=None, transition=None, **kwargs):
 def trigger(tokens=[], case=None, transition=None, **kwargs):
     sinks = []
     for token in tokens:
+        if token['name'] == 'destroy_token_request':
+            location = models.Location.objects.get(id=token['color']['location'])
+            for token_request in location.tokens.filter(case=case).filter(name=token['color']['token_name']):
+                try:
+                    models.Message.objects.get(id=token_request.color).delete()
+                    token_request.delete()
+                except Exception as e:
+                    print(e)
+                    print(token_request)
+                    print(token_request.color)
+                    import ipdb; ipdb.set_trace()
         if token.get('name') == 'token_request_location':
             location = models.Location.objects.get(id=token['color']['location'])
             message = models.Message()
@@ -129,6 +140,7 @@ def request_tokens(tokens=[], case=None, transition=None, **kwargs):
             location = models.Location.objects.get(id=token['color']['location'])
             for token_request in location.tokens.filter(case=case).filter(name=token['color']['token_name']):
                 models.Message.objects.get(id=token_request.color).delete()
+                token_request.delete()
 
     return sinks
 
